@@ -1,0 +1,42 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'styles/movies-search.css' %}">
+</head>
+<body>
+    <h2>Search results for: {{query}}</h2>
+    <section class="movie-list-container">
+        
+        <div class="movie-list">
+            {% if movies %}
+            {% for movie in movies %}
+            <div class="movie-card">
+                <a href="{% url 'movie' movie.movie_id %}" class="movie-image">
+                    {% if movie.vote_average == 0 %}
+                    <span class="rating-tag">N/A</span>
+                    {% elif movie.vote_average > 0 and movie.vote_average < 5 %}
+                        <span class="rating-tag" style="background: linear-gradient(0deg, rgb(255, 87, 87) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                    {% elif movie.vote_average >= 5 and movie.vote_average < 7 %}
+                        <span class="rating-tag" style="background: linear-gradient(0deg, rgb(255, 219, 39) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                    {% else %}
+                        <span class="rating-tag" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                    {% endif %}
+                    <img src="{{movie.poster_url}}" class="movie-poster" alt="{{movie.title}}">
+                    <button class="wishlist-add-btn"><img src="{% static 'icons/bookmark.png' %}" alt=""></button>
+                </a>
+                <div class="movie-info">
+                    <h2 class="movie-name">{{movie.title}}</h2>
+                    <span class="movie-year">{{movie.formatted_release_date}}</span>
+                    <button class="watch-trailer-btn">Trailer</button>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        
+    </section>
+</body>
+{% endblock content %}

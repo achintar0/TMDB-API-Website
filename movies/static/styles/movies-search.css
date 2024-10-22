@@ -1,52 +1,40 @@
-.slider-type{
-    color: white;
-    width: 60%;
-    margin: 20px 0px;
-    margin-left: 20px;
-    text-align: left;
-
+body{
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 700;
+    font-weight: 500;
     font-style: normal;
+
+    text-align: center;
 }
 
-.movie-slider{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 0;
+.movie-list-container{
+    width: 100%;
+    height: 100vw;
+
     margin: 0;
-    width: auto;
-    height: 430px;
-    overflow: hidden;
-    flex-direction: column;
-    
+    display: flex;
+    justify-content: center;    
+    margin: 30px 0;
 }
 
-.movie-slider-container{
-    display: flex;
-    align-items: center;
-    align-content: center;
-    overflow-x: auto;
+.movie-list{
     width: 60%;
-    height: 100%;
-    padding: 0;
+    height: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5em;
     margin: 0;
-    scroll-behavior: smooth;
-    scrollbar-color: rgb(30, 30, 30) black;
-    scrollbar-width: thin;
+    padding: 0;
 }
 
 .movie-card{
-    display: inherit;
+    display: flex;
     flex-direction: column;
-    flex: 0 0 auto;
     width: 12em;
-    height: 100%;
+    height: 400px;
 
-    margin: 0px 10px;
     border-radius: 10px;
     background: rgb(30, 30, 30);
     transition: 0.5s;
@@ -176,7 +164,6 @@
     cursor: pointer;
     width: 60%;
     padding: 10px;
-    margin-bottom: 5px;
     font-size: 1.1em;
     
     font-family: "Montserrat", sans-serif;
@@ -204,7 +191,8 @@
 .movie-info{
     display: inherit;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    gap: 0.5em;
     align-items: center;
     height: auto;
     text-align: center;
@@ -221,48 +209,9 @@
 .movie-name{
     font-size: 1.1em;
     text-transform: capitalize;
-    margin: 5px 5px;
-
+    margin: 0 5px;
 }
 
 .movie-genre{
     font-size: 1em;
-    margin: 5px;
-}
-
-.pre-btn,
-.nxt-btn{
-    border: none;
-    width: 5em;
-    height: 40px;
-    position: absolute;
-    padding: 0;
-    top: 45%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    cursor: pointer;
-    z-index: 9;
-    filter: invert(100%) sepia(81%) saturate(2%) hue-rotate(43deg) brightness(108%) contrast(100%);;
-}
-
-.pre-btn{
-    left: 15%;
-}
-
-.nxt-btn{
-    right: 15%;
-}
-
-.pre-btn > img{
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.nxt-btn > img{
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
 }

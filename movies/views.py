@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView, DetailView
+from django.views import View
 from datetime import datetime
 from .api_services import TMDBClient
 from django.shortcuts import render, redirect
@@ -81,5 +82,43 @@ class ItemPage(TemplateView):
         
         return context
 
+class MoviesSearch(TemplateView):
+    template_name = 'movies/movies-search.html'
+
+    def get(self, request, *args, **kwargs):
+        movies = []
+        query = request.GET.get('query', '')
+        if query:
+            queryData = TMDBClient.search_movies(query)
+        genre_map = TMDBClient.fetch_genre_ids()
+
+        print(queryData)
+
+        for movie in queryData:
+            poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            
+            genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in movie.get('genre_ids', [])]
+            
+            movies.append({
+                'movie_id': movie['id'],
+                'title': movie['title'],
+                'formatted_release_date': movie['release_date'],
+                'vote_average': movie['vote_average'],
+                'poster_url': poster_url,
+                'genres': genre_names,
+            })
+
+
+        for movie in movies:
+            if movie['formatted_release_date']:
+                release_date = datetime.strptime(movie['formatted_release_date'], "%Y-%m-%d")
+                movie['formatted_release_date'] = release_date.strftime("%d %B %Y")
+
+        context = {
+            'movies': movies,
+            'query': query
+        }
+
+        return self.render_to_response(context)
 
 

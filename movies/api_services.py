@@ -62,3 +62,21 @@ class TMDBClient:
             movieDetails = response.json()
             return movieDetails
         return movieDetails
+
+
+    @staticmethod
+    def search_movies(query):
+        url =  f'{TMDBClient.BASE_URL}/search/movie'
+
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'query': query,
+            'page': '1',
+        }
+
+        moviesData = []
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            data = response.json().get('results', [])
+            return data
+        return moviesData

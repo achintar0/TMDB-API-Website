@@ -15,8 +15,8 @@
             <div class="title-container">
                 <a href="{% url 'home'%}">MovieDB</a>
             </div>
-            <form method="get">
-                <input type="text" class="search-box" placeholder="Search a movie...">
+            <form method="GET" action="{% url 'movies-search' %}">
+                <input type="text" name="query" value="{{query}}" class="search-box" placeholder="Search a movie...">
                 <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
             </form>
             <div class="header-btns">
