@@ -25,7 +25,7 @@
                         <span class="rating-tag" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
                     {% endif %}
                     <img src="{{movie.poster_url}}" class="movie-poster" alt="{{movie.title}}">
-                    <button class="wishlist-add-btn">Add to Wishlist</button>
+                    <button class="wishlist-add-btn"><img src="{% static 'icons/bookmark.png' %}" alt=""></button>
                 </a>
                 <div class="movie-info">
                     <h2 class="movie-name">{{movie.title}}</h2>
