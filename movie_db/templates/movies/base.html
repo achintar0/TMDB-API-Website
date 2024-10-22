@@ -15,10 +15,21 @@
             <div class="title-container">
                 <a href="{% url 'home'%}">MovieDB</a>
             </div>
-            <form method="GET" action="{% url 'movies-search' %}">
-                <input type="text" name="query" value="{{query}}" class="search-box" placeholder="Search a movie...">
-                <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
-            </form>
+                <form method="GET" action="{% url 'movies-search' %}">
+                    <input type="text" name="query" value="{{query}}" class="search-box" placeholder="Search a movie...">
+                    <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
+                    <div class="dynamic-search-container">
+                        <div class="dynamic-search-img">
+                            <img src="https://image.tmdb.org/t/p/w200/5UsK3grJvtQrtzEgqNlDljJW96w.jpg" alt="">
+                        </div>
+                        <a href="#" class="dynamic-search-info">
+                            <span class="dynamic-search-title">Batman v Superman: Dawn of Justice</span>
+                            <span class="dynamic-search-date">25 May 2023</span>
+                        </a>
+                    </div>
+        
+                </form>
+               
             <div class="header-btns">
                 <a href="#" class="wishlist-btn">Wishlist</a>
                 {% if user.is_authenticated %}
@@ -34,6 +45,7 @@
             </div>
         </div>
     </header>
+
     {% if messages %}
     {% for message in messages %}
         <h2 class="register-message">Welcome, {{message}}!</h2>

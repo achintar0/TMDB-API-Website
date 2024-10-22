@@ -9,10 +9,10 @@
 <body>
     <h2>Search results for: {{query}}</h2>
     <section class="movie-list-container">
-        
         <div class="movie-list">
             {% if movies %}
-            {% for movie in movies %}
+                {% for movie in movies %}
+
             <div class="movie-card">
                 <a href="{% url 'movie' movie.movie_id %}" class="movie-image">
                     {% if movie.vote_average == 0 %}
@@ -33,10 +33,10 @@
                     <button class="watch-trailer-btn">Trailer</button>
                 </div>
             </div>
-            {% endfor %}
+
+                {% endfor %}
             {% endif %}
         </div>
-        
     </section>
 </body>
 {% endblock content %}

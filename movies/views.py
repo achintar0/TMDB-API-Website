@@ -10,35 +10,16 @@ class TrendingMovies(TemplateView):
     
     def get(self, request):
         movies = []
-        data = TMDBClient.fetch_week_trending_movies()
+        queryData = TMDBClient.fetch_week_trending_movies()
         genre_map = TMDBClient.fetch_genre_ids()
 
-        for movie in data:
-            poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-            
-            
-            genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in movie.get('genre_ids', [])]
-            
-            movies.append({
-                'movie_id': movie['id'],
-                'title': movie['title'],
-                'formatted_release_date': movie['release_date'],
-                'vote_average': movie['vote_average'],
-                'poster_url': poster_url,
-                'genres': genre_names,
-            })
-
-
-        for movie in movies:
-            if movie['formatted_release_date']:
-                release_date = datetime.strptime(movie['formatted_release_date'], "%Y-%m-%d")
-                movie['formatted_release_date'] = release_date.strftime("%d %B %Y")
-
+        movies = setup_response_data(queryData, genre_map)
         context = {
             'movies': movies
         }
 
         return self.render_to_response(context)
+
 
 class ItemPage(TemplateView):
     template_name = 'movies/item_page.html'
@@ -50,8 +31,6 @@ class ItemPage(TemplateView):
 
         poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
         backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
-
-        
 
         movieDetails = {
             'title': queryData['title'],
@@ -74,29 +53,39 @@ class ItemPage(TemplateView):
         release_date = datetime.strptime(movieDetails['release_date'], "%Y-%m-%d")
         movieDetails['release_date'] = release_date.strftime("%d %B %Y")
 
-        print(movieDetails)
-
         context = {
             'movie': movieDetails
         }
         
         return context
 
+
 class MoviesSearch(TemplateView):
     template_name = 'movies/movies-search.html'
 
     def get(self, request, *args, **kwargs):
-        movies = []
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_movies(query)
+        else:
+            return redirect('home')
         genre_map = TMDBClient.fetch_genre_ids()
 
-        print(queryData)
+        movies = setup_response_data(queryData, genre_map)
+        sortedMovies = sorted(movies, key=lambda x: x['popularity'], reverse=True)
 
-        for movie in queryData:
+        context = {
+            'movies': sortedMovies,
+            'query': query
+        }
+
+        return self.render_to_response(context)
+
+
+def setup_response_data(queryData : list, genre_map : dict) -> list:
+    movies = []
+    for movie in queryData:
             poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-            
             genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in movie.get('genre_ids', [])]
             
             movies.append({
@@ -106,19 +95,12 @@ class MoviesSearch(TemplateView):
                 'vote_average': movie['vote_average'],
                 'poster_url': poster_url,
                 'genres': genre_names,
+                'popularity': movie['popularity']
             })
 
-
-        for movie in movies:
-            if movie['formatted_release_date']:
-                release_date = datetime.strptime(movie['formatted_release_date'], "%Y-%m-%d")
-                movie['formatted_release_date'] = release_date.strftime("%d %B %Y")
-
-        context = {
-            'movies': movies,
-            'query': query
-        }
-
-        return self.render_to_response(context)
-
-
+    for movie in movies:
+        if movie['formatted_release_date']:
+            release_date = datetime.strptime(movie['formatted_release_date'], "%Y-%m-%d")
+            movie['formatted_release_date'] = release_date.strftime("%d %B %Y")
+    
+    return movies
