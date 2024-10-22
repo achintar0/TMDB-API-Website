@@ -1,0 +1,53 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'styles/item_page.css' %}">
+</head>
+<body>
+    <section class="main-item-container">
+        <img src="{{movie.backdrop_img}}" class="backdrop-img" alt="">
+        <div class="item-image-block">
+            <img src="{{movie.poster_url}}" alt="">
+        </div>
+        <div class="item-info-container">
+            <div class="item-title item-info">
+                <span>{{movie.title}} ({{movie.release_date|slice:'-4:'}})</span>
+            </div>
+            <div class="item-date item-info">
+                <span>{{movie.release_date}} | {{movie.runtimeHours}}h {{movie.runtimeMinutes}}m</span>
+            </div>
+            <div class="item-genre item-info">
+                {% for genre in movie.genre %}
+                    <span class="genre-tag">{{genre.name}}</span>
+                {% endfor %}  
+            </div>
+            <div class="item-rating item-info">
+                {% if movie.vote_average == 0 %}
+                    <span>N/A</span>
+                {% elif movie.vote_average > 0 and movie.vote_average < 5 %}
+                    <span style="background: linear-gradient(0deg, rgb(255, 87, 87) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                {% elif movie.vote_average >= 5 and movie.vote_average < 7 %}
+                    <span style="background: linear-gradient(0deg, rgb(255, 219, 39) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                {% else %}
+                    <span style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
+                {% endif %}
+            </div>
+            <div class="item-btns item-info">
+                <button class="add-wishlist-btn"><img src="{% static 'icons/bookmark.png' %}" alt=""></button>
+                <button class="watch-trailer-btn">Trailer<img src="{% static 'icons/play-button.png' %}"</button>
+            </div>
+            <div class="item-overview item-info">
+                <h3>Overview:</h3>
+                <span>{{movie.overview}} </span>
+            </div>
+            <div class="item-cast item-info">
+                <h3>Henry Cavill</h3>
+                <span>Actor</p>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock content %}
+    

@@ -1,0 +1,47 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Movie Hub</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="title-container">
+                <a href="{% url 'home'%}">MovieDB</a>
+            </div>
+            <form method="get">
+                <input type="text" class="search-box" placeholder="Search a movie...">
+                <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
+            </form>
+            <div class="header-btns">
+                <a href="#" class="wishlist-btn">Wishlist</a>
+                {% if user.is_authenticated %}
+                    <div class="profile-btn">
+                        <p>{{user.username}}</p>
+                        <div class="profile-btn-dropdown">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-btn">Sign In</a>
+                {%endif%}
+            </div>
+        </div>
+    </header>
+    {% if messages %}
+    {% for message in messages %}
+        <h2 class="register-message">Welcome, {{message}}!</h2>
+    {% endfor %}
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</body>
+
+
+    

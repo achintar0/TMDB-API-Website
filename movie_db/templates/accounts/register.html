@@ -1,0 +1,12 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<h2>Register a new account.</h2>
+<section class="register-form">
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Sign Up</button><br>
+    </form>
+</section> 
+{% endblock %}   

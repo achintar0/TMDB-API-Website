@@ -1,0 +1,176 @@
+body{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.main-item-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+
+
+    width: 100%;
+    height: 550px;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.138) 0%, rgba(255,255,255,0) 100%);   
+}
+
+.backdrop-img{
+    object-fit: cover;
+    width: 100%;
+    height: 550px;
+    position: absolute;
+    z-index: -1;
+    opacity: 0.2;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.item-image-block{
+    width: auto;
+    height: 450px;
+    
+    margin-left: 20em;
+    border-radius: 2em;
+    background-color: black;
+}
+
+.item-image-block > img{
+    object-fit: cover;
+    width: auto;
+    height: 450px;
+    border-radius: 2em;
+    transition: 0.5s;
+}
+
+.item-image-block > img:hover{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.item-info-container{
+    display: inherit;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-right: 10em;
+    padding: 0px 30px;
+    height: 450px;
+}
+
+.item-info{
+    margin: 10px;
+    text-align: left;
+}
+
+.item-info > h5,
+.item-info > h3,
+.item-info > h2,
+.item-info > span,
+.item-info > button{
+    margin: 0;
+}
+
+.item-title > span{
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.item-date{
+    font-size: 1.2em;
+}
+
+.item-rating{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.item-rating > span{
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: 700;
+    border-radius: 10em;
+    color: black;
+    background: white;
+}
+
+.item-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-btns > button{
+    margin: 0px 5px;
+}
+
+.genre-tag{
+    border: 0;
+    background-color: rgb(61, 61, 61);
+    padding: 5px;
+    margin: 5px 0px;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.3em;
+}
+
+.genre-tag:hover{
+    background-color: rgb(88, 88, 88);
+
+}
+
+.add-wishlist-btn{
+    width: 3em;
+    height: 3em;
+    background: white;
+    border-radius: 0.4em;
+    border: 0;
+    cursor: pointer;
+}
+
+.add-wishlist-btn > img{
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    background: white;
+    border-radius: 2em;
+    border: 0;
+    cursor: pointer;
+}
+
+.watch-trailer-btn{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0.4em;
+    cursor: pointer;
+    font-size: 1.3em;
+    padding: 5px;
+    
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+.watch-trailer-btn > img{
+    width: 1.5em;
+    height: 1.5em;
+    border: 0;
+    margin-left: 5px;
+}
+
