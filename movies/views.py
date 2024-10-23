@@ -4,6 +4,7 @@ from datetime import datetime
 from .api_services import TMDBClient
 from django.shortcuts import render, redirect
 import random
+from django.http import JsonResponse
 
 class TrendingMovies(TemplateView):
     template_name = 'movies/home.html'
@@ -80,6 +81,22 @@ class MoviesSearch(TemplateView):
         }
 
         return self.render_to_response(context)
+    
+class MoviesSearchBar(View):
+    def get(self, request):
+        query = request.GET.get('query', '')
+        if query:
+            queryData = TMDBClient.search_movies(query)
+        genre_map = TMDBClient.fetch_genre_ids()
+
+        movies = setup_response_data(queryData, genre_map)
+        sortedMovies = sorted(movies, key=lambda x: x['popularity'], reverse=True)
+
+        context = {
+            'movies': sortedMovies,
+        }
+
+        return JsonResponse(context, safe=False)
 
 
 def setup_response_data(queryData : list, genre_map : dict) -> list:

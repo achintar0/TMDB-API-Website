@@ -16,17 +16,12 @@
                 <a href="{% url 'home'%}">MovieDB</a>
             </div>
                 <form method="GET" action="{% url 'movies-search' %}">
-                    <input type="text" name="query" value="{{query}}" class="search-box" placeholder="Search a movie...">
+                    <input type="text" id="searchInput" name="query" value="{{query}}" class="search-box" placeholder="Search a movie..." autocomplete="off">
                     <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
-                    <div class="dynamic-search-container">
-                        <div class="dynamic-search-img">
-                            <img src="https://image.tmdb.org/t/p/w200/5UsK3grJvtQrtzEgqNlDljJW96w.jpg" alt="">
-                        </div>
-                        <a href="#" class="dynamic-search-info">
-                            <span class="dynamic-search-title">Batman v Superman: Dawn of Justice</span>
-                            <span class="dynamic-search-date">25 May 2023</span>
-                        </a>
+                    <div id="movieResults" class="dynamic-search-container">
+
                     </div>
+                    
         
                 </form>
                
@@ -53,6 +48,8 @@
     {% endif %}
     {% block content %}
     {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'scripts/search-bar.js' %}"></script>
 </body>
 
 

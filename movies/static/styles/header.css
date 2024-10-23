@@ -210,29 +210,46 @@ body{
 
 .dynamic-search-container{
     position: relative;
-    z-index: 9;
+    z-index: 1;
     background: white;
     bottom: 75%;
 
     width: 20em;
-    height: 100px;
+    height: 400px;
 
-    display: flex;
-    flex-direction: row;
+    display: none;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    gap: 1em;
+    
     cursor: pointer;
     transition: 0.5s;
 }
 
-.dynamic-search-container:hover{
+.search-bar-item:hover{
     background: rgb(215, 215, 215);
+}
+
+.search-bar-item{
+    position: relative;
+
+    width: 100%;
+    height: 100px;
+    
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+    background: white;
+    text-decoration: none;
+
+
 }
 
 .dynamic-search-img{
     height: 90%;
-    width: 100px;
+    width: 70px;
     margin: 0px 0px 0px 5px;
 }
 .dynamic-search-img > img{
@@ -250,12 +267,12 @@ body{
     align-items: flex-start;
     text-align: left;
     height: 90%;
-    width: 50%;
-    width: auto;
+    width: 60%;
     color: black;
     margin: 5px 0px;
     gap: 0.3em;
-    text-decoration: none;
+
+    margin-left: 5px;
 }
 
 .dynamic-search-date{
