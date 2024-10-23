@@ -34,7 +34,7 @@ class ItemPage(TemplateView):
         backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
 
         movieDetails = {
-            'title': queryData['title'],
+            'title': queryData['title'] or queryData['name'],
             'release_date': queryData['release_date'],
             'vote_average': queryData['vote_average'],
             'genre': queryData['genres'],
@@ -68,6 +68,7 @@ class MoviesSearch(TemplateView):
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_movies(query)
+            print(queryData)
         else:
             return redirect('home')
         genre_map = TMDBClient.fetch_genre_ids()
@@ -87,13 +88,15 @@ class MoviesSearchBar(View):
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_movies(query)
+        else:
+            print('error not found server!')
         genre_map = TMDBClient.fetch_genre_ids()
 
         movies = setup_response_data(queryData, genre_map)
         sortedMovies = sorted(movies, key=lambda x: x['popularity'], reverse=True)
 
         context = {
-            'movies': sortedMovies,
+            'searchMovies': sortedMovies,
         }
 
         return JsonResponse(context, safe=False)
@@ -102,14 +105,15 @@ class MoviesSearchBar(View):
 def setup_response_data(queryData : list, genre_map : dict) -> list:
     movies = []
     for movie in queryData:
-            poster_url = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            poster_url = f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}"
             genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in movie.get('genre_ids', [])]
             
             movies.append({
                 'movie_id': movie['id'],
-                'title': movie['title'],
-                'formatted_release_date': movie['release_date'],
-                'vote_average': movie['vote_average'],
+                'title': movie.get('title') or movie.get('name'),
+                'formatted_release_date': movie.get('release_date') or movie.get('first_air_date'),
+                'media_type': movie.get('media_type'),
+                'vote_average': movie.get('vote_average'),
                 'poster_url': poster_url,
                 'genres': genre_names,
                 'popularity': movie['popularity']

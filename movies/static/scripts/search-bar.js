@@ -1,10 +1,14 @@
+
+
 $(document).ready(function(){
+    const searchUrl = $('#searchInput').data('url');
+
     $('#searchInput').on('keyup', function(){
         let query = $(this).val();
 
         if (query.length > 0){
             $.ajax({
-                url: 'movies-search-bar/',
+                url: searchUrl,
                 data: {
                     'query':query,
                 },
@@ -12,7 +16,7 @@ $(document).ready(function(){
                 success: function(data){
                     console.log(data)
                     $('#movieResults').empty();
-                    data.movies.slice(0,4).forEach(function(movie){
+                    data.searchMovies.slice(0,4).forEach(function(movie){
                         $('#movieResults').append(
                             `<a href="${"movie/"+movie.movie_id}" class="search-bar-item">
                             <div class="dynamic-search-img">

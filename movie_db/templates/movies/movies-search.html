@@ -30,6 +30,12 @@
                 <div class="movie-info">
                     <h2 class="movie-name">{{movie.title}}</h2>
                     <span class="movie-year">{{movie.formatted_release_date}}</span>
+                    
+                    {% if movie.media_type == 'tv' %}
+                    <span class="movie-year">TV Show</span>
+                    {% else %}
+                    <span class="movie-year">Movie</span>
+                    {% endif %}
                     <button class="watch-trailer-btn">Trailer</button>
                 </div>
             </div>

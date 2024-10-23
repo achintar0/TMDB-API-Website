@@ -66,7 +66,7 @@ class TMDBClient:
 
     @staticmethod
     def search_movies(query):
-        url =  f'{TMDBClient.BASE_URL}/search/movie'
+        url =  f'{TMDBClient.BASE_URL}/search/multi'
 
         params = {
             'api_key': settings.TMDB_API_KEY,

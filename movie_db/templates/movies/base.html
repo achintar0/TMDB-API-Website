@@ -16,7 +16,7 @@
                 <a href="{% url 'home'%}">MovieDB</a>
             </div>
                 <form method="GET" action="{% url 'movies-search' %}">
-                    <input type="text" id="searchInput" name="query" value="{{query}}" class="search-box" placeholder="Search a movie..." autocomplete="off">
+                    <input type="text" id="searchInput" name="query" value="{{query}}" class="search-box" data-url="{% url 'movies-search-bar' %}" placeholder="Search a movie..." autocomplete="off">
                     <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
                     <div id="movieResults" class="dynamic-search-container">
 
