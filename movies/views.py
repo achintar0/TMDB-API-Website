@@ -105,7 +105,7 @@ class MoviesSearchBar(View):
 def setup_response_data(queryData : list, genre_map : dict) -> list:
     movies = []
     for movie in queryData:
-            poster_url = f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}"
+            poster_url = f"https://image.tmdb.org/t/p/w200{movie.get('poster_path')}"
             genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in movie.get('genre_ids', [])]
             
             movies.append({

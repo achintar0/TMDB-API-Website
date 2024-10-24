@@ -4,7 +4,7 @@ const preBtn = [...document.querySelectorAll('.pre-btn')];
 
 movieContainers.forEach((item, i) => {
     let containerDimensions = item.getBoundingClientRect();
-    let containerWidth = containerDimensions.width - 10;
+    let containerWidth = containerDimensions.width;
 
     nxtBtn[i].addEventListener('click', () => {
         item.scrollLeft += containerWidth;

@@ -1,8 +1,9 @@
+
 .slider-type{
     color: white;
-    width: 60%;
-    margin: 20px 0px;
-    margin-left: 20px;
+    width: 43em;
+    padding: 0;
+    margin: 10px 0px;
     text-align: left;
 
     font-family: "Montserrat", sans-serif;
@@ -15,13 +16,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    width: auto;
-    height: 430px;
-    overflow: hidden;
+    align-content: center;
     flex-direction: column;
+    position: relative;
+
+    padding: 0;
+    margin-top: 50px;
+    width: 100%;
+    height: 470px;
     
 }
 
@@ -29,14 +31,17 @@
     display: flex;
     align-items: center;
     align-content: center;
-    overflow-x: auto;
-    width: 60%;
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 64em;
     height: 100%;
     padding: 0;
     margin: 0;
     scroll-behavior: smooth;
     scrollbar-color: rgb(30, 30, 30) black;
     scrollbar-width: thin;
+    gap: 0.8em;
+
 }
 
 .movie-card{
@@ -44,10 +49,9 @@
     flex-direction: column;
     flex: 0 0 auto;
     width: 12em;
-    height: 100%;
+    height: 400px;
 
-    margin: 0px 10px;
-    border-radius: 10px;
+    border-radius: 0.2em;
     background: rgb(30, 30, 30);
     transition: 0.5s;
     cursor: pointer;
@@ -57,12 +61,11 @@
     position: relative;
     width: 100%;
     height: 250px;
-    overflow: hidden;
     align-content: center;
     transition: 0.5s ease;
     box-shadow: 0px 5px 10px 0px rgba(12, 12, 12, 0.75);
     
-    border-radius: 10px;
+    border-radius: 0.2em;
 }
 
 .movie-image:hover{
@@ -99,9 +102,8 @@
     left: 20px;
     top: 10px;
 
-    border-top-right-radius: 0.3em;
-    border-bottom-right-radius: 0.3em;
-
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
     
     transform: translateX(-50%);
     width: 3em;
@@ -175,20 +177,21 @@
 .watch-trailer-btn{
     cursor: pointer;
     width: 60%;
-    padding: 10px;
-    margin-bottom: 5px;
-    font-size: 1.1em;
+    height: 35px;
+    font-size: 1em;
+
     
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
-    background-color: transparent;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.83);
+    color: rgb(30, 30, 30);
 
     border: 0;
-    border-radius: 1em;
+    border-radius: 0.2em;
     transition: 0.5s;
+
 
 }
 
@@ -205,29 +208,27 @@
     display: inherit;
     flex-direction: column;
     justify-content: space-around;
+    gap: 0em;
     align-items: center;
-    height: auto;
     text-align: center;
     color: white;
-    flex: 2;
+    flex: 1;
 
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    font-size: 0.9em;
+
 }
 
 .movie-name{
-    font-size: 1.1em;
+    font-size: 0.9em;
     text-transform: capitalize;
-    margin: 5px 5px;
-
+    margin: 0px 5px;
 }
 
-.movie-genre{
-    font-size: 1em;
-    margin: 5px;
+.movie-year{
+    font-size: 0.9em;
 }
 
 .pre-btn,
@@ -248,11 +249,11 @@
 }
 
 .pre-btn{
-    left: 15%;
+    left: 18%;
 }
 
 .nxt-btn{
-    right: 15%;
+    right: 18%;
 }
 
 .pre-btn > img{
