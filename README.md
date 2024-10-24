@@ -12,3 +12,9 @@ Currently the features available are:
 ![alt text](https://github.com/achintar0/TMDB-API-Website/blob/master/images/movie-search.png)
 ![alt text](https://github.com/achintar0/TMDB-API-Website/blob/master/images/search-bar.png)
 ![alt text](https://github.com/achintar0/TMDB-API-Website/blob/master/images/movie-details.png)
+
+# Setup
+The pkg requirements are included in **requirements.txt** file.
+Setup your .env file with your own API and secret keys.
+
+I've included the templates at project level and static files at application level for personal preferences.
