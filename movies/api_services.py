@@ -47,9 +47,9 @@ class TMDBClient:
             return genre_map
         return genre_map
     
-    def search_movie_details(movie_id):
+    def search_movie_details(item_id):
         movieDetails = []
-        url = f'{TMDBClient.BASE_URL}/movie/{movie_id}'
+        url = f'{TMDBClient.BASE_URL}/movie/{item_id}'
 
         params = {
             'api_key': settings.TMDB_API_KEY,
@@ -59,13 +59,29 @@ class TMDBClient:
         response = requests.get(url, params=params)
 
         if response.status_code == 200:
-            movieDetails = response.json()
-            return movieDetails
+            data = response.json()
+            return data
         return movieDetails
+    
+    def search_series_details(item_id):
+        seriesDetails = []
+        url = f'{TMDBClient.BASE_URL}/tv/{item_id}'
+
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'language': 'en-US'
+        }
+
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        return seriesDetails
 
 
     @staticmethod
-    def search_movies(query):
+    def search_items(query):
         url =  f'{TMDBClient.BASE_URL}/search/multi'
 
         params = {
@@ -74,9 +90,9 @@ class TMDBClient:
             'page': '1',
         }
 
-        moviesData = []
+        itemData = []
         response = requests.get(url, params=params)
         if response.status_code == 200:
             data = response.json().get('results', [])
             return data
-        return moviesData
+        return itemData
