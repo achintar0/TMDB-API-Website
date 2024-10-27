@@ -7,7 +7,7 @@ body{
     text-align: center;
 }
 
-.movie-list-container{
+.item-list-container{
     width: 100%;
     height: 100vw;
 
@@ -17,23 +17,23 @@ body{
     margin: 30px 0;
 }
 
-.movie-list{
+.item-list{
     width: 70em;
-    height: 500px;
+    height: auto;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     gap: 1.5em;
     margin: 0;
     padding: 0;
 }
 
-.movie-card{
+.item-card{
     display: flex;
     flex-direction: column;
     width: 12em;
-    height: 450px;
+    height: 400px;
 
     border-radius: 0.2em;
     background: rgb(30, 30, 30);
@@ -41,10 +41,10 @@ body{
     cursor: pointer;
 }
 
-.movie-image{
+.item-image-container{
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 270px;
     align-content: center;
     transition: 0.5s ease;
     box-shadow: 0px 5px 10px 0px rgba(12, 12, 12, 0.75);
@@ -52,17 +52,17 @@ body{
     border-radius: 0.1em;
 }
 
-.movie-image:hover{
+.item-image-container:hover{
     opacity: 0.8;
 }
 
-.movie-poster{
+.item-poster{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.rating-tag{
+.item-rating-tag{
     width: 2em;
     height: 2em;
     position: absolute;
@@ -81,7 +81,7 @@ body{
     font-style: normal;
 }
 
-.wishlist-add-btn{
+.watchlist-add-btn{
     position: absolute;
     left: 20px;
     top: 10px;
@@ -110,7 +110,7 @@ body{
 
 
 }
-.wishlist-add-btn > img{
+.watchlist-add-btn > img{
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -118,15 +118,15 @@ body{
     filter: brightness(0) saturate(100%) invert(5%) sepia(82%) saturate(8%) hue-rotate(315deg) brightness(107%) contrast(89%);
 }
 
-.wishlist-add-btn:hover{
+.watchlist-add-btn:hover{
     background: rgb(198, 198, 198);
 }
 
-.wishlist-add-btn:hover > img{
-    animation: bookmarkBtnShake 1s linear 0s infinite normal forwards;
+.watchlist-add-btn:hover > img{
+    animation: watchlistBtnShake 1s linear 0s infinite normal forwards;
 }
 
-@keyframes bookmarkBtnShake {
+@keyframes watchlistBtnShake {
 	0%,
 	100% {
 		transform: rotate(0deg);
@@ -161,9 +161,10 @@ body{
 
 .watch-trailer-btn{
     cursor: pointer;
-    width: 60%;
-    height: 35px;
+    width: 5em;
+    height: 2em;
     font-size: 1em;
+    margin-bottom: 20px;
 
     
     font-family: "Montserrat", sans-serif;
@@ -185,19 +186,20 @@ body{
     color: rgb(30, 30, 30);
 }
 
-.movie-image:hover .wishlist-add-btn{
+.item-image-container:hover .watchlist-add-btn{
     opacity: 1;
 }
 
-.movie-info{
+.item-info{
     display: inherit;
     flex-direction: column;
-    justify-content: space-around;
-    gap: 0em;
+    justify-content: space-between;
+
+    margin-left: 5px;
+    flex: 2;
     align-items: center;
     text-align: center;
     color: white;
-    flex: 1;
 
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -206,17 +208,17 @@ body{
 
 }
 
-.movie-name{
+.item-name{
     font-size: 0.9em;
     text-transform: capitalize;
-    margin: 0px 5px;
+    margin: 10px 5px;
 }
 
-.movie-year{
+.item-year{
     font-size: 0.9em;
 }
 
-.movie-mtype{
+.item-media-type{
     font-size: 0.9em;
     font-weight: 800;
 }

@@ -1,4 +1,4 @@
-const movieContainers = [...document.querySelectorAll('.movie-slider-container')];
+const movieContainers = [...document.querySelectorAll('.item-slider-container')];
 const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
 const preBtn = [...document.querySelectorAll('.pre-btn')];
 

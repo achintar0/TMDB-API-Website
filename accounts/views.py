@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic.edit import CreateView
-from django.views import generic, View
+from django.views import View
+from django.views.generic import TemplateView, ListView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .forms import CustomRegisterForm
+from .models import Watchlist
 import requests
 
 
@@ -55,6 +56,10 @@ class SignUpView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
+class AddToWatchlist(ListView):
+    model = Watchlist
+    template_name = 'accounts/watchlist.html'
+    context_object_name = 'watchlistItems'
     
 
     

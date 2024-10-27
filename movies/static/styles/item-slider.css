@@ -1,5 +1,5 @@
 
-.slider-type{
+.item-slider-type{
     color: white;
     width: 43em;
     padding: 0;
@@ -12,7 +12,7 @@
     font-style: normal;
 }
 
-.movie-slider{
+.item-slider{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
     
 }
 
-.movie-slider-container{
+.item-slider-container{
     display: flex;
     align-items: center;
     align-content: center;
@@ -44,7 +44,7 @@
 
 }
 
-.movie-card{
+.item-card{
     display: inherit;
     flex-direction: column;
     flex: 0 0 auto;
@@ -57,7 +57,7 @@
     cursor: pointer;
 }
 
-.movie-image{
+.item-image-container{
     position: relative;
     width: 100%;
     height: 250px;
@@ -68,17 +68,17 @@
     border-radius: 0.2em;
 }
 
-.movie-image:hover{
+.item-image-container:hover{
     opacity: 0.8;
 }
 
-.movie-poster{
+.item-poster{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.rating-tag{
+.item-rating-tag{
     width: 2em;
     height: 2em;
     position: absolute;
@@ -200,11 +200,11 @@
     color: rgb(30, 30, 30);
 }
 
-.movie-image:hover .wishlist-add-btn{
+.item-image:hover .wishlist-add-btn{
     opacity: 1;
 }
 
-.movie-info{
+.item-info{
     display: inherit;
     flex-direction: column;
     justify-content: space-around;
@@ -221,13 +221,13 @@
 
 }
 
-.movie-name{
+.item-name{
     font-size: 0.9em;
     text-transform: capitalize;
     margin: 0px 5px;
 }
 
-.movie-year{
+.item-year{
     font-size: 0.9em;
 }
 

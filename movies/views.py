@@ -3,7 +3,6 @@ from django.views import View
 from datetime import datetime
 from .api_services import TMDBClient
 from django.shortcuts import render, redirect
-import random
 from django.http import JsonResponse
 
 class TrendingMovies(TemplateView):
@@ -16,14 +15,14 @@ class TrendingMovies(TemplateView):
 
         movies = setup_response_data(queryData, genre_map, 'w500')
         context = {
-            'movies': movies
+            'trendingMovies': movies
         }
 
         return self.render_to_response(context)
 
 
 class ItemsSearch(TemplateView):
-    template_name = 'movies/items-search.html'
+    template_name = 'movies/search.html'
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('query', '')
@@ -120,8 +119,6 @@ def setup_item_details(item_id, media_type):
     movieDetails = []
     tvshowDetails = []
     
-    
-
     if media_type == 'movie':
         queryData = TMDBClient.search_movie_details(item_id)
 
@@ -154,7 +151,6 @@ def setup_item_details(item_id, media_type):
     
     else:
         queryData = TMDBClient.search_series_details(item_id)
-        print(queryData)
 
         poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
         backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
