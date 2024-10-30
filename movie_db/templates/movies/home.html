@@ -1,5 +1,6 @@
 {% extends 'movies/base.html' %}
 {% load static %}
+{% csrf_token %}
 
 {% block content %}
 <head>
@@ -14,7 +15,7 @@
             {% if trendingMovies %}
                 {% for movie in trendingMovies %}
             <div class="item-card">       
-                <a href="{% url 'movie-details' media_type=movie.media_type item_id=movie.item_id %}" class="item-image-container">
+                <a  class="item-image-container">
                     
                     {% if movie.vote_average == 0 %}
                     <span class="item-rating-tag">N/A</span>
@@ -26,7 +27,9 @@
                         <span class="item-rating-tag" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{movie.vote_average|floatformat:1}}</span>
                     {% endif %}
                     <img src="{{movie.poster_url}}" class="item-poster" alt="{{movie.title}}">
-                    <button class="wishlist-add-btn"><img src="{% static 'icons/bookmark.png' %}" alt=""></button>
+                    <button class="watchlist-add-btn" data-item-id="{{movie.item_id}}" data-media-type="{{movie.media_type}}">
+                        <img src="{% static 'icons/bookmark.png' %}" alt="">
+                    </button>
                 </a>
                 <div class="item-info">
                     <h2 class="item-name">{{movie.title}}</h2>
@@ -40,7 +43,14 @@
             {% endif%}
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'scripts/item-slider.js'%}"></script>
+    <script src="{% static 'scripts/watchlist.js'%}"></script>
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+
+
 </body>
 {% endblock %}
     

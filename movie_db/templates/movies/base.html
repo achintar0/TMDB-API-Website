@@ -23,7 +23,7 @@
                 </form>
                 
             <div class="header-btns">
-                <a href="#" class="wishlist-btn">Wishlist</a>
+                <a href="{% url 'watchlist' %}" class="watchlist-btn">Watchlist</a>
                 {% if user.is_authenticated %}
                     <div class="profile-btn">
                         <p>{{user.username}}</p>

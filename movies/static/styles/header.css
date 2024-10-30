@@ -32,7 +32,7 @@ body{
     
 }
 
-.login-btn, .wishlist-btn, .profile-btn{
+.login-btn, .watchlist-btn, .profile-btn{
     font-family: "Montserrat", sans-serif;
     font-size: 0.9em;
     font-weight: 700;
@@ -55,7 +55,7 @@ body{
     
 }
 
-.wishlist-btn:hover{
+.watchlist-btn:hover{
     background: white;
     color: black;
     transition: 0.5s;

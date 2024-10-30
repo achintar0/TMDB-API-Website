@@ -1,13 +1,14 @@
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import CustomRegisterForm
 from .models import Watchlist
+from django.http import JsonResponse
 import requests
 
 
@@ -54,12 +55,20 @@ class SignUpView(CreateView):
         if request.user.is_authenticated:
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
+    
+class AddToWatchlist(View):
+    def post(self, request, *args, **kwargs):
+        item_id = request.POST.get('item_id')
+        itemType = request.POST.get('media_type')
+        user = request.user
 
-
-class AddToWatchlist(ListView):
-    model = Watchlist
-    template_name = 'accounts/watchlist.html'
-    context_object_name = 'watchlistItems'
+        if not Watchlist.objects.filter(username=user, itemID=item_id).exists():
+            Watchlist.objects.create(username=user, itemID=item_id, itemType=itemType)
+            return JsonResponse({'success': True, "message": "Added to Watchlist!"})
+        else:
+            return JsonResponse({'success': False, "message": "Item already in watchlist!"})
+    
+        return JsonResponse({'success': False, "message": "Invalid Request!"})
     
 
     
