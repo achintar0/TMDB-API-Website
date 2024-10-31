@@ -15,7 +15,7 @@
             {% if trendingMovies %}
                 {% for movie in trendingMovies %}
             <div class="item-card">       
-                <a  class="item-image-container">
+                <a href="{% url 'movie-details' media_type=movie.media_type item_id=movie.item_id %}" class="item-image-container">
                     
                     {% if movie.vote_average == 0 %}
                     <span class="item-rating-tag">N/A</span>

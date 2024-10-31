@@ -109,12 +109,14 @@ class Watchlist(LoginRequiredMixin, TemplateView):
                 queryData.append(TMDBClient.search_series_details(item.itemID))
             else:
                 queryData.append(TMDBClient.search_movie_details(item.itemID))
-
+            
         watchlistData = DataSetup.setup_response_data(queryData, genre_map, 'w500')
         
         context = {
             'watchlistData':watchlistData,
         }
+
+        
 
         return context
         
