@@ -5,7 +5,7 @@ $(document).on('click', '.watchlist-add-btn', function(){
 
     $.ajax({
         type: "POST",
-        url: "add-to-watchlist/",
+        url: addToWatchlistURL,
         data: {
             "item_id":item_id,
             "media_type":media_type,

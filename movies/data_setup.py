@@ -16,7 +16,7 @@ class DataSetup:
                     'vote_average': item.get('vote_average'),
                     'poster_url': poster_url,
                     'genres': genre_names,
-                    'popularity': item['popularity']
+                    'popularity': item.get('popularity') or None,
                 })
 
         for item in items:
