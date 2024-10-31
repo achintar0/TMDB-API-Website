@@ -37,6 +37,7 @@ class DataSetup:
             backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
 
             movieDetails = {
+                'item_id': queryData['id'],
                 'title': queryData['title'],
                 'release_date': queryData.get('release_date'),
                 'vote_average': queryData.get('vote_average'),

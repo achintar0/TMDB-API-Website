@@ -21,6 +21,7 @@ body{
 }
 
 .backdrop-img{
+    filter: blur(25px);
     object-fit: cover;
     object-position: center 10%;
 
@@ -28,7 +29,7 @@ body{
     height: 550px;
     position: absolute;
     z-index: -1;
-    opacity: 0.2;
+    opacity: 0.7;
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
 }
@@ -38,7 +39,7 @@ body{
     height: 450px;
     
     margin-left: 20em;
-    border-radius: 2em;
+    border-radius: 1.5em;
     background-color: black;
 }
 
@@ -130,7 +131,7 @@ body{
 
 }
 
-.add-wishlist-btn{
+.watchlist-add-btn{
     width: 3em;
     height: 3em;
     background: white;
@@ -139,7 +140,7 @@ body{
     cursor: pointer;
 }
 
-.add-wishlist-btn > img{
+.watchlist-add-btn > img{
     object-fit: cover;
     width: 90%;
     height: 90%;
