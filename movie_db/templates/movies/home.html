@@ -35,18 +35,41 @@
                         <a href="{% url 'movie-details' media_type=movie.media_type item_id=movie.item_id %}">
                             <img src="{{movie.poster_url}}" class="item-poster" alt="{{movie.title}}">
                         </a>
+                        
+                        {% if movie.on_watchlist %}
+                        <button class="watchlist-remove-btn" 
+                            data-item-id="{{movie.item_id}}"
+                            data-item-title="{{movie.title}}" style="display: block;">
+                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                        </button>
                         <button class="watchlist-add-btn" 
                             data-item-id="{{movie.item_id}}" 
                             data-media-type="{{movie.media_type}}"
                             data-item-title="{{movie.title}}"
                             data-item-poster="{{movie.poster_url}}"
-                            data-item-rating="{{movie.vote_average}}">
-                            <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                        </button> 
+                            data-item-rating="{{movie.vote_average}}" style="display: none;">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                        </button>
+                        {% else %}
+                        <button class="watchlist-remove-btn" id="watchlist-remove-btn"
+                            data-item-id="{{movie.item_id}}"
+                            data-item-title="{{movie.title}}" style="display: none;">
+                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                        </button>
+                        <button class="watchlist-add-btn" id="watchlist-add-btn"
+                            data-item-id="{{movie.item_id}}" 
+                            data-media-type="{{movie.media_type}}"
+                            data-item-title="{{movie.title}}"
+                            data-item-poster="{{movie.poster_url}}"
+                            data-item-rating="{{movie.vote_average}}" style="display: block;">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                        </button>
+                        {% endif %}
+                            
                     </div>
                     <div class="item-info">
                         <h2 class="item-name">{{movie.title}}</h2>
-                        <span class="item-year">{{movie.release_date}}</span>
+                        <span class="item-year">{{movie.release_date|slice:'-4:'}}</span>
                         <button class="watch-trailer-btn">Trailer</button>
                         
                     </div>

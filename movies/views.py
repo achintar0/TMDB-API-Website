@@ -11,11 +11,12 @@ class TrendingMovies(TemplateView):
     template_name = 'movies/home.html'
     
     def get(self, request):
+        user = self.request.user
         movies = []
         queryData = TMDBClient.fetch_week_trending_movies()
         genre_map = TMDBClient.fetch_genre_ids()
 
-        movies = DataSetup.setup_response_data(queryData, genre_map, 'w500')
+        movies = DataSetup.setup_response_data(queryData, genre_map, 'w500', user)
         context = {
             'trendingMovies': movies
         }
@@ -27,6 +28,7 @@ class ItemsSearch(TemplateView):
     template_name = 'movies/search.html'
 
     def get(self, request, *args, **kwargs):
+        user = self.request.user
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_items(query)
@@ -34,7 +36,7 @@ class ItemsSearch(TemplateView):
             return redirect('home')
         genre_map = TMDBClient.fetch_genre_ids()
 
-        items = DataSetup.setup_response_data(queryData, genre_map, 'w500')
+        items = DataSetup.setup_response_data(queryData, genre_map, 'w500', user)
         sortedItems = sorted(items, key=lambda x: x['popularity'], reverse=True)
 
         context = {
@@ -46,6 +48,7 @@ class ItemsSearch(TemplateView):
     
 class SearchBar(View):
     def get(self, request):
+        user = self.request.user
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_items(query)
@@ -53,7 +56,7 @@ class SearchBar(View):
             print('error not found server!')
         genre_map = TMDBClient.fetch_genre_ids()
 
-        items = DataSetup.setup_response_data(queryData, genre_map, 'w200')
+        items = DataSetup.setup_response_data(queryData, genre_map, 'w200', user)
         sortedItems = sorted(items, key=lambda x: x['popularity'], reverse=True)
 
         context = {
@@ -65,11 +68,13 @@ class SearchBar(View):
 class MovieDetailsPage(TemplateView):
     template_name = 'movies/item-details.html'
     
+    
     def get_context_data(self, **kwargs):
         item_id = self.kwargs.get('item_id')
         media_type = self.kwargs.get('media_type')
+        user = self.request.user
 
-        itemResults = DataSetup.setup_item_details(item_id, media_type)
+        itemResults = DataSetup.setup_item_details(item_id, media_type, user)
 
         context = {
             'itemDetails': itemResults
@@ -81,10 +86,11 @@ class SeriesDetailsPage(TemplateView):
     template_name = 'movies/item-details.html'
     
     def get_context_data(self, **kwargs):
+        user = self.request.user
         item_id = self.kwargs.get('item_id')
         media_type = self.kwargs.get('media_type')
 
-        itemResults = DataSetup.setup_item_details(item_id, media_type)
+        itemResults = DataSetup.setup_item_details(item_id, media_type, user)
 
         context = {
             'itemDetails': itemResults

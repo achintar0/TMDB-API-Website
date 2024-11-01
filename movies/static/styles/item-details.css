@@ -131,7 +131,7 @@ body{
 
 }
 
-.watchlist-add-btn{
+.watchlist-add-btn, .watchlist-remove-btn{
     width: 3em;
     height: 3em;
     background: white;
@@ -148,6 +148,16 @@ body{
     border-radius: 2em;
     border: 0;
     cursor: pointer;
+}
+
+.watchlist-remove-btn > img{
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    border-radius: 2em;
+    border: 0;
+    cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(35%) sepia(87%) saturate(3669%) hue-rotate(349deg) brightness(107%) contrast(105%);
 }
 
 .watch-trailer-btn{

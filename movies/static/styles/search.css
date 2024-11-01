@@ -85,25 +85,24 @@ body{
     font-style: normal;
 }
 
-.watchlist-add-btn{
+.watchlist-add-btn, .watchlist-remove-btn{
     position: absolute;
     left: 20px;
-    top: 10px;
-    z-index: 9;
-    border-top-right-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
+    top: 0px;
+    
 
+    border-bottom-right-radius: 0.1em;
     
     transform: translateX(-50%);
     width: 3em;
     height: 3em;
     border: none;
     outline: none;
-    background: white;
+    background: rgb(30, 30, 30);
 
     transition: 0.5s;
     cursor: pointer;
-    opacity: 0;
+    opacity: 0.9;
     
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -111,22 +110,31 @@ body{
     font-style: normal;
 
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.423);
-
-
 }
+
 .watchlist-add-btn > img{
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    opacity: 1;
 
-    filter: brightness(0) saturate(100%) invert(5%) sepia(82%) saturate(8%) hue-rotate(315deg) brightness(107%) contrast(89%);
+    filter: brightness(0) saturate(100%) invert(97%) sepia(99%) saturate(0%) hue-rotate(270deg) brightness(102%) contrast(103%);
 }
 
-.watchlist-add-btn:hover{
-    background: rgb(198, 198, 198);
+.watchlist-remove-btn > img{
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    opacity: 1;
+
+    filter: brightness(0) saturate(100%) invert(35%) sepia(87%) saturate(3669%) hue-rotate(349deg) brightness(107%) contrast(105%);
 }
 
-.watchlist-add-btn:hover > img{
+.watchlist-add-btn:hover, .watchlist-remove-btn:hover{
+    opacity: 1;
+}
+
+.watchlist-add-btn:hover > img, .watchlist-remove-btn:hover > img{
     animation: watchlistBtnShake 1s linear 0s infinite normal forwards;
 }
 
@@ -188,10 +196,6 @@ body{
 .watch-trailer-btn:hover{
     background-color: white;
     color: rgb(30, 30, 30);
-}
-
-.item-image-container:hover .watchlist-add-btn{
-    opacity: 1;
 }
 
 .item-info{

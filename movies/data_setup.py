@@ -1,13 +1,19 @@
 from datetime import datetime
 from .api_services import TMDBClient
+from accounts.models import Watchlist
 
 class DataSetup:
-    def setup_response_data(queryData : list, genre_map : dict, poster_quality : str) -> list:
+    def setup_response_data(queryData, genre_map, poster_quality, user):
         items = []
         for item in queryData:
                 poster_url = f"https://image.tmdb.org/t/p/{poster_quality}{item.get('poster_path')}"
                 genre_names = [genre_map.get(genre_id, 'Unknown') for genre_id in item.get('genre_ids', [])]
-                
+
+                if Watchlist.objects.filter(username=user, itemID=item.get('id')).exists():
+                     on_watchlist = True
+                else:
+                     on_watchlist = False
+
                 items.append({
                     'item_id': item.get('id'),
                     'title': item.get('title') or item.get('name'),
@@ -17,6 +23,7 @@ class DataSetup:
                     'poster_url': poster_url,
                     'genres': genre_names,
                     'popularity': item.get('popularity') or None,
+                    'on_watchlist': on_watchlist,
                 })
 
         for item in items:
@@ -26,7 +33,7 @@ class DataSetup:
         
         return items
 
-    def setup_item_details(item_id, media_type):
+    def setup_item_details(item_id, media_type, user):
         movieDetails = []
         tvshowDetails = []
         
@@ -35,6 +42,11 @@ class DataSetup:
 
             poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
             backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
+
+            if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
+                on_watchlist = True
+            else:
+                on_watchlist = False
 
             movieDetails = {
                 'item_id': queryData['id'],
@@ -47,7 +59,8 @@ class DataSetup:
                 'backdrop_img': backdrop_url,
                 'runtimeHours': queryData['runtime'],
                 'runtimeMinutes': queryData['runtime'],
-                'media_type': media_type
+                'media_type': media_type,
+                'on_watchlist': on_watchlist,
             }
 
             movieHours = queryData['runtime']//60
@@ -65,7 +78,12 @@ class DataSetup:
             queryData = TMDBClient.search_series_details(item_id)
 
             poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
-            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
+            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"\
+            
+            if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
+                on_watchlist = True
+            else:
+                on_watchlist = False
 
             tvshowDetails = {
                 'title': queryData['name'],
@@ -77,7 +95,8 @@ class DataSetup:
                 'backdrop_img': backdrop_url,
                 'number_of_seasons': queryData['number_of_seasons'],
                 'number_of_episodes': queryData['number_of_episodes'],
-                'media_type': media_type
+                'media_type': media_type,
+                'on_watchlist': on_watchlist,
             }
 
             release_date = datetime.strptime(tvshowDetails['release_date'], "%Y-%m-%d")

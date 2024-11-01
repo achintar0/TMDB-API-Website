@@ -89,8 +89,8 @@
     
     border-radius: 0.2em;
     color: rgb(0, 0, 0);
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 50px;
     text-transform: capitalize;
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -98,25 +98,23 @@
     font-style: normal;
 }
 
-.watchlist-add-btn{
+.watchlist-add-btn, .watchlist-remove-btn{
     position: absolute;
-    left: 20px;
-    top: 10px;
-    z-index: 9;
-
-    border-top-right-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
+    right: 0px;
+    top: 0px;
     
-    transform: translateX(-50%);
+
+    border-bottom-right-radius: 0.1em;
+    
     width: 3em;
     height: 3em;
     border: none;
     outline: none;
-    background: white;
+    background: rgb(30, 30, 30);
 
     transition: 0.5s;
     cursor: pointer;
-    opacity: 0;
+    opacity: 0.9;
     
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -124,22 +122,31 @@
     font-style: normal;
 
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.423);
-
-
 }
+
 .watchlist-add-btn > img{
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    opacity: 1;
 
-    filter: brightness(0) saturate(100%) invert(5%) sepia(82%) saturate(8%) hue-rotate(315deg) brightness(107%) contrast(89%);
+    filter: brightness(0) saturate(100%) invert(97%) sepia(99%) saturate(0%) hue-rotate(270deg) brightness(102%) contrast(103%);
 }
 
-.watchlist-add-btn:hover{
-    background: rgb(198, 198, 198);
+.watchlist-remove-btn > img{
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    opacity: 1;
+
+    filter: brightness(0) saturate(100%) invert(35%) sepia(87%) saturate(3669%) hue-rotate(349deg) brightness(107%) contrast(105%);
 }
 
-.watchlist-add-btn:hover > img{
+.watchlist-add-btn:hover, .watchlist-remove-btn:hover{
+    opacity: 1;
+}
+
+.watchlist-add-btn:hover > img, .watchlist-remove-btn:hover > img{
     animation: bookmarkBtnShake 1s linear 0s infinite normal forwards;
 }
 
@@ -178,9 +185,10 @@
 
 .watch-trailer-btn{
     cursor: pointer;
-    width: 60%;
-    height: 35px;
-    font-size: 1em;
+    width: 5em;
+    height: 2.5em;
+    margin-bottom: 5px;
+
 
     
     font-family: "Montserrat", sans-serif;
@@ -193,8 +201,6 @@
     border: 0;
     border-radius: 0.2em;
     transition: 0.5s;
-
-
 }
 
 .watch-trailer-btn:hover{
@@ -202,35 +208,32 @@
     color: rgb(30, 30, 30);
 }
 
-.item-image-container:hover .watchlist-add-btn{
-    opacity: 1;
-}
-
 .item-info{
     display: inherit;
     flex-direction: column;
     justify-content: space-around;
     gap: 0em;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
     color: white;
-    flex: 1;
+    margin-left: 10px;
 
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-
+    flex: 2;
 }
 
 .item-name{
     font-size: 0.9em;
     text-transform: capitalize;
-    margin: 0px 5px;
+    margin-top: 3px;
+    text-align: left;
 }
 
 .item-year{
     font-size: 0.9em;
+    margin-bottom: 5px;
 }
 
 .pre-btn,

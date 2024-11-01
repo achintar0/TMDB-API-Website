@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from .forms import CustomRegisterForm
 from .models import Watchlist
 from django.http import JsonResponse
@@ -56,7 +57,7 @@ class SignUpView(CreateView):
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
     
-class AddToWatchlist(View):
+class AddToWatchlist(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item_id')
         itemTitle = request.POST.get('title')
@@ -81,29 +82,17 @@ class AddToWatchlist(View):
         return JsonResponse({'success': False, "message": "Invalid Request!"})
 
 
-class RemoveFromWatchlist(View):
+class RemoveFromWatchlist(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item_id')
-        itemTitle = request.POST.get('title')
-        itemPoster = request.POST.get('poster_url')
-        itemRating = request.POST.get('vote_average')
-        itemType = request.POST.get('media_type')
         user = request.user
 
-        if not Watchlist.objects.filter(username=user, itemID=item_id).exists():
-            Watchlist.objects.create(
-                username=user,
-                itemID=item_id,
-                itemTitle=itemTitle,
-                itemPoster=itemPoster,
-                itemRating=itemRating,
-                itemType=itemType,
-            )
-            return JsonResponse({'success': True, "message": "Added to Watchlist!"})
-        else:
-            return JsonResponse({'success': False, "message": "Item already in watchlist!"})
-    
-        return JsonResponse({'success': False, "message": "Invalid Request!"})
+        watchlist_item = get_object_or_404(Watchlist, username=user, itemID=item_id)
+
+        watchlist_item.delete()
+
+        return JsonResponse({'success': True, "message": "Removed from Watchlist!"})
+       
 
     
 

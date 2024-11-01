@@ -18,8 +18,7 @@
                 {% for item in watchlistDataMovies %}
                 
                 <div class="item-card">
-                    <a href="{% url 'movie-details' media_type='movie' item_id=item.item_id %}" 
-                        class="item-image-container">
+                    <div class="item-image-container">
 
                         {% if item.vote_average == 0 %}
                         <span class="item-rating-tag">N/A</span>
@@ -37,11 +36,14 @@
                             </span>
                         {% endif %}
 
-                        <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
-                        <button class="watchlist-remove-btn">
+                        <a href="{% url 'movie-details' media_type='movie' item_id=item.item_id %}">
+                            <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
+                        </a>
+                        <button class="watchlist-remove-btn" data-item-id="{{item.item_id}}" data-item-title="{{item.title}}">
                             <img src="{% static 'icons/watchlist-remv.png' %}" alt="Add to Watchlist!">
                         </button>
-                    </a>
+
+                    </div>
                     <div class="item-info">
                         <h2 class="item-name">{{item.title}}</h2>                    
                         <button class="watch-trailer-btn">Trailer</button>
@@ -60,8 +62,7 @@
                 {% for item in watchlistDataSeries %}
                 
                 <div class="item-card">
-                    <a href="{% url 'series-details' media_type='tv' item_id=item.item_id %}" 
-                        class="item-image-container">
+                    <div class="item-image-container">
                     
                         {% if item.vote_average == 0 %}
                         <span class="item-rating-tag">N/A</span>
@@ -72,27 +73,21 @@
                         {% else %}
                             <span class="item-rating-tag" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{item.vote_average|floatformat:1}}</span>
                         {% endif %}
-                        <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
-                        <button class="watchlist-remove-btn"
-                            data-item-id="{{item.item_id}}" 
-                            data-media-type="{{item.media_type}}"
-                            data-item-title="{{item.title}}"
-                            data-item-poster="{{item.poster_url}}"
-                            data-item-rating="{{item.vote_average}}">
+                        <a href="{% url 'series-details' media_type='tv' item_id=item.item_id %}">
+                            <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
+                        </a>
+                        <button class="watchlist-remove-btn" data-item-id="{{item.item_id}}" data-item-title="{{item.title}}">
                             <img src="{% static 'icons/watchlist-remv.png' %}" alt="Remove from Watchlist!">
                         </button>
-                    </a>
+                    </div>
                     <div class="item-info">
                         <h2 class="item-name">{{item.title}}</h2>                    
-    
                         <button class="watch-trailer-btn">Trailer</button>
                     </div>
                 </div>
-    
                     {% endfor %}
             </div>
         </div>
-        
     </section>
     <script src="{% static 'scripts/list-collapse.js' %}"></script>
 </body>

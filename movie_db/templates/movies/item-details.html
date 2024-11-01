@@ -45,11 +45,37 @@
                 {% endif %}
             </div>
             <div class="item-btns item-info">
-                <button class="watchlist-add-btn"
-                    data-item-id="{{itemDetails.item_id}}" 
-                    data-media-type="{{itemDetails.media_type}}">
-                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                </button>
+
+                {% if itemDetails.on_watchlist %}
+                        <button class="watchlist-remove-btn" 
+                            data-item-id="{{itemDetails.item_id}}"
+                            data-item-title="{{itemDetails.title}}" style="display: block;">
+                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                        </button>
+                        <button class="watchlist-add-btn" 
+                            data-item-id="{{itemDetails.item_id}}" 
+                            data-media-type="{{itemDetails.media_type}}"
+                            data-item-title="{{itemDetails.title}}"
+                            data-item-poster="{{itemDetails.poster_url}}"
+                            data-item-rating="{{itemDetails.vote_average}}" style="display: none;">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                        </button>
+                        {% else %}
+                        <button class="watchlist-remove-btn"
+                            data-item-id="{{itemDetails.item_id}}"
+                            data-item-title="{{itemDetails.title}}" style="display: none;">
+                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                        </button>
+                        <button class="watchlist-add-btn"
+                            data-item-id="{{itemDetails.item_id}}" 
+                            data-media-type="{{itemDetails.media_type}}"
+                            data-item-title="{{itemDetails.title}}"
+                            data-item-poster="{{itemDetails.poster_url}}"
+                            data-item-rating="{{itemDetails.vote_average}}" style="display: block;">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                        </button>
+                        {% endif %}
+                        
                 <button class="watch-trailer-btn">Trailer<img src="{% static 'icons/play-button.png' %}"</button>
             </div>
             <div class="item-overview item-info">
