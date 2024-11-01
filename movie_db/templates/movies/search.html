@@ -41,8 +41,13 @@
                         <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}"> 
                     </a>
                     {% endif %}
-                    <button class="watchlist-add-btn" data-item-id="{{item.item_id}}" data-media-type="{{item.media_type}}">
-                        <img src="{% static 'icons/bookmark.png' %}" alt="Add to Watchlist!">
+                    <button class="watchlist-add-btn" 
+                        data-item-id="{{item.item_id}}" 
+                        data-media-type="{{item.media_type}}"
+                        data-item-title="{{item.title}}"
+                        data-item-poster="{{item.poster_url}}"
+                        data-item-rating="{{item.vote_average}}">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="Add to Watchlist!">
                     </button>
                 </div>
                 <div class="item-info">

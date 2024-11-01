@@ -100,20 +100,29 @@ class Watchlist(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         watchlistModel = self.model.objects.filter(username=self.request.user).order_by('-addedOn')
-        genre_map = TMDBClient.fetch_genre_ids()
 
-        queryDataMovies = []
-        queryDataSeries = []
+        
+        watchlistDataMovies = []
+        watchlistDataSeries = []
 
         for item in watchlistModel:
+            poster_url = f"https://image.tmdb.org/t/p/w500{item.itemPoster}"
             if item.itemType == 'tv':
-                # parse model's itemID to the api's detail search.
-                queryDataSeries.append(TMDBClient.search_series_details(item.itemID))                
+                watchlistDataSeries.append({
+                    'item_id': item.itemID,
+                    'title': item.itemTitle,
+                    'poster_url': poster_url,
+                    'vote_average': item.itemRating,
+                    'media_type': item.itemType,
+                })
             else:
-                queryDataMovies.append(TMDBClient.search_movie_details(item.itemID))
-                            
-        watchlistDataMovies = DataSetup.setup_response_data(queryDataMovies, None, 'w500')
-        watchlistDataSeries = DataSetup.setup_response_data(queryDataSeries, None, 'w500')
+                watchlistDataMovies.append({
+                    'item_id': item.itemID,
+                    'title': item.itemTitle,
+                    'poster_url': poster_url,
+                    'vote_average': item.itemRating,
+                    'media_type': item.itemType,
+                })
  
         context = {
             'watchlistDataMovies':watchlistDataMovies,

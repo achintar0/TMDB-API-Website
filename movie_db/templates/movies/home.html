@@ -35,8 +35,13 @@
                         <a href="{% url 'movie-details' media_type=movie.media_type item_id=movie.item_id %}">
                             <img src="{{movie.poster_url}}" class="item-poster" alt="{{movie.title}}">
                         </a>
-                        <button class="watchlist-add-btn" data-item-id="{{movie.item_id}}" data-media-type="{{movie.media_type}}">
-                            <img src="{% static 'icons/bookmark.png' %}" alt="">
+                        <button class="watchlist-add-btn" 
+                            data-item-id="{{movie.item_id}}" 
+                            data-media-type="{{movie.media_type}}"
+                            data-item-title="{{movie.title}}"
+                            data-item-poster="{{movie.poster_url}}"
+                            data-item-rating="{{movie.vote_average}}">
+                            <img src="{% static 'icons/watchlist-add.png' %}" alt="">
                         </button> 
                     </div>
                     <div class="item-info">

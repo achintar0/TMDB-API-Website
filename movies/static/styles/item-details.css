@@ -47,7 +47,7 @@ body{
     object-fit: cover;
     width: auto;
     height: 450px;
-    border-radius: 2em;
+    border-radius: 1.5em;
     transition: 0.5s;
 }
 

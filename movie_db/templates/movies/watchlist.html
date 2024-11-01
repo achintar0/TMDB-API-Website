@@ -38,8 +38,8 @@
                         {% endif %}
 
                         <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
-                        <button class="watchlist-add-btn">
-                            <img src="{% static 'icons/bookmark.png' %}" alt="Add to Watchlist!">
+                        <button class="watchlist-remove-btn">
+                            <img src="{% static 'icons/watchlist-remv.png' %}" alt="Add to Watchlist!">
                         </button>
                     </a>
                     <div class="item-info">
@@ -73,7 +73,14 @@
                             <span class="item-rating-tag" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{item.vote_average|floatformat:1}}</span>
                         {% endif %}
                         <img src="{{item.poster_url}}" class="item-poster" alt="{{item.title}}">
-                        <button class="watchlist-add-btn"><img src="{% static 'icons/bookmark.png' %}" alt="Add to Watchlist!"></button>
+                        <button class="watchlist-remove-btn"
+                            data-item-id="{{item.item_id}}" 
+                            data-media-type="{{item.media_type}}"
+                            data-item-title="{{item.title}}"
+                            data-item-poster="{{item.poster_url}}"
+                            data-item-rating="{{item.vote_average}}">
+                            <img src="{% static 'icons/watchlist-remv.png' %}" alt="Remove from Watchlist!">
+                        </button>
                     </a>
                     <div class="item-info">
                         <h2 class="item-name">{{item.title}}</h2>                    

@@ -45,8 +45,10 @@
                 {% endif %}
             </div>
             <div class="item-btns item-info">
-                <button class="watchlist-add-btn" data-item-id="{{itemDetails.item_id}}" data-media-type="{{itemDetails.media_type}}">
-                    <img src="{% static 'icons/bookmark.png' %}" alt="">
+                <button class="watchlist-add-btn"
+                    data-item-id="{{itemDetails.item_id}}" 
+                    data-media-type="{{itemDetails.media_type}}">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
                 </button>
                 <button class="watch-trailer-btn">Trailer<img src="{% static 'icons/play-button.png' %}"</button>
             </div>

@@ -59,17 +59,51 @@ class SignUpView(CreateView):
 class AddToWatchlist(View):
     def post(self, request, *args, **kwargs):
         item_id = request.POST.get('item_id')
+        itemTitle = request.POST.get('title')
+        itemPoster = request.POST.get('poster_url')
+        itemRating = request.POST.get('vote_average')
         itemType = request.POST.get('media_type')
         user = request.user
 
         if not Watchlist.objects.filter(username=user, itemID=item_id).exists():
-            Watchlist.objects.create(username=user, itemID=item_id, itemType=itemType)
+            Watchlist.objects.create(
+                username=user,
+                itemID=item_id,
+                itemTitle=itemTitle,
+                itemPoster=itemPoster,
+                itemRating=itemRating,
+                itemType=itemType,
+            )
             return JsonResponse({'success': True, "message": "Added to Watchlist!"})
         else:
             return JsonResponse({'success': False, "message": "Item already in watchlist!"})
     
         return JsonResponse({'success': False, "message": "Invalid Request!"})
+
+
+class RemoveFromWatchlist(View):
+    def post(self, request, *args, **kwargs):
+        item_id = request.POST.get('item_id')
+        itemTitle = request.POST.get('title')
+        itemPoster = request.POST.get('poster_url')
+        itemRating = request.POST.get('vote_average')
+        itemType = request.POST.get('media_type')
+        user = request.user
+
+        if not Watchlist.objects.filter(username=user, itemID=item_id).exists():
+            Watchlist.objects.create(
+                username=user,
+                itemID=item_id,
+                itemTitle=itemTitle,
+                itemPoster=itemPoster,
+                itemRating=itemRating,
+                itemType=itemType,
+            )
+            return JsonResponse({'success': True, "message": "Added to Watchlist!"})
+        else:
+            return JsonResponse({'success': False, "message": "Item already in watchlist!"})
     
+        return JsonResponse({'success': False, "message": "Invalid Request!"})
 
     
 
