@@ -79,6 +79,37 @@ class TMDBClient:
             return data
         return seriesDetails
 
+    def search_series_video(item_id):
+        serieVideos = []
+        url = f'{TMDBClient.BASE_URL}/tv/{item_id}/videos'
+
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'language': 'en-US'
+        }
+
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        return serieVideos
+    
+    def search_movie_video(item_id):
+        movieVideos = []
+        url = f'{TMDBClient.BASE_URL}/movie/{item_id}/videos'
+
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'language': 'en-US'
+        }
+
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        return movieVideos
 
     @staticmethod
     def search_items(query):

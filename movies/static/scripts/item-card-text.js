@@ -2,8 +2,8 @@ function adjustTitleFontSize() {
     const titleElements = document.querySelectorAll('.item-name');
 
     titleElements.forEach(titleElement => {
-        const maxFontSize = 14;
-        const minFontSize = 13;
+        const maxFontSize = 13;
+        const minFontSize = 11;
         const maxTitleLength = 50;
 
         let titleLength = titleElement.textContent.length;

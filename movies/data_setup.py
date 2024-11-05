@@ -39,6 +39,7 @@ class DataSetup:
         
         if media_type == 'movie':
             queryData = TMDBClient.search_movie_details(item_id)
+            videoData = TMDBClient.search_movie_video(item_id)
 
             poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
             backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
@@ -76,9 +77,10 @@ class DataSetup:
         
         else:
             queryData = TMDBClient.search_series_details(item_id)
+            videoData = TMDBClient.search_series_video(item_id)
 
             poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
-            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"\
+            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
             
             if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
                 on_watchlist = True
@@ -86,6 +88,7 @@ class DataSetup:
                 on_watchlist = False
 
             tvshowDetails = {
+                'item_id': queryData['id'],
                 'title': queryData['name'],
                 'release_date': queryData['first_air_date'],
                 'vote_average': queryData['vote_average'],

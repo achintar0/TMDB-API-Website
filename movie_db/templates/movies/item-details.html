@@ -9,85 +9,96 @@
 <body>
     <section class="main-item-container">
         <img src="{{itemDetails.backdrop_img}}" class="backdrop-img" alt="">
-        <div class="item-image-block">
-            <img src="{{itemDetails.poster_url}}" alt="">
-        </div>
-        <div class="item-info-container">
-            <div class="item-title item-info">
-                <span>{{itemDetails.title}} ({{itemDetails.release_date|slice:'-4:'}})</span>
-            </div>
-            
-            {% if itemDetails.media_type == 'tv' %}
-            <div class="item-date item-info">
-                <span>{{itemDetails.release_date}} | Seasons: {{itemDetails.number_of_seasons}} | Episodes: {{itemDetails.number_of_episodes}}</span>
-            </div>
-            {% else %}
-            <div class="item-date item-info">
-                <span>{{itemDetails.release_date}} | {{itemDetails.runtimeHours}}h {{itemDetails.runtimeMinutes}}m</span>
-            </div>
-            {% endif %}
-                
-            
-            <div class="item-genre item-info">
-                {% for genre in itemDetails.genre %}
-                    <span class="genre-tag">{{genre.name}}</span>
-                {% endfor %}  
-            </div>
-            <div class="item-rating item-info">
-                {% if itemDetails.vote_average == 0 %}
-                    <span>N/A</span>
-                {% elif itemDetails.vote_average > 0 and itemDetails.vote_average < 5 %}
-                    <span style="background: linear-gradient(0deg, rgb(255, 87, 87) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
-                {% elif itemDetails.vote_average >= 5 and itemDetails.vote_average < 7 %}
-                    <span style="background: linear-gradient(0deg, rgb(255, 219, 39) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
-                {% else %}
-                    <span style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
-                {% endif %}
-            </div>
-            <div class="item-btns item-info">
+        <div class="content-container">
+            <div class="item-headline">
+                <div class="headline-left-elems">
+                    <span class="item-title">{{itemDetails.title}}</span>
 
-                {% if itemDetails.on_watchlist %}
-                        <button class="watchlist-remove-btn" 
-                            data-item-id="{{itemDetails.item_id}}"
-                            data-item-title="{{itemDetails.title}}" style="display: block;">
-                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
-                        </button>
-                        <button class="watchlist-add-btn" 
-                            data-item-id="{{itemDetails.item_id}}" 
-                            data-media-type="{{itemDetails.media_type}}"
-                            data-item-title="{{itemDetails.title}}"
-                            data-item-poster="{{itemDetails.poster_url}}"
-                            data-item-rating="{{itemDetails.vote_average}}" style="display: none;">
-                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                        </button>
-                        {% else %}
-                        <button class="watchlist-remove-btn"
-                            data-item-id="{{itemDetails.item_id}}"
-                            data-item-title="{{itemDetails.title}}" style="display: none;">
-                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
-                        </button>
-                        <button class="watchlist-add-btn"
-                            data-item-id="{{itemDetails.item_id}}" 
-                            data-media-type="{{itemDetails.media_type}}"
-                            data-item-title="{{itemDetails.title}}"
-                            data-item-poster="{{itemDetails.poster_url}}"
-                            data-item-rating="{{itemDetails.vote_average}}" style="display: block;">
-                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                        </button>
-                        {% endif %}
-                        
-                <button class="watch-trailer-btn">Trailer<img src="{% static 'icons/play-button.png' %}"</button>
+                    {% if itemDetails.media_type == 'tv' %}
+                    <span class="item-date">TV Show | {{itemDetails.release_date|slice:'-4:'}} | Seasons: {{itemDetails.number_of_seasons}} | Episodes: {{itemDetails.number_of_episodes}}</span>
+                    {% else %}
+                    <span class="item-date">Movie | {{itemDetails.release_date|slice:'-4:'}} | {{itemDetails.runtimeHours}}h {{itemDetails.runtimeMinutes}}m</span>
+                    {% endif %}
+
+                </div>
+                <div class="headline-right-elems">
+                    {% if itemDetails.on_watchlist %}
+                    <button class="watchlist-remove-btn" 
+                        data-item-id="{{itemDetails.item_id}}"
+                        data-item-title="{{itemDetails.title}}" style="display: block;">
+                    <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                    </button>
+                    <button class="watchlist-add-btn" 
+                        data-item-id="{{itemDetails.item_id}}" 
+                        data-media-type="{{itemDetails.media_type}}"
+                        data-item-title="{{itemDetails.title}}"
+                        data-item-poster="{{itemDetails.poster_url}}"
+                        data-item-rating="{{itemDetails.vote_average}}" style="display: none;">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                    </button>
+                    {% else %}
+                    <button class="watchlist-remove-btn"
+                        data-item-id="{{itemDetails.item_id}}"
+                        data-item-title="{{itemDetails.title}}" style="display: none;">
+                    <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                    </button>
+                    <button class="watchlist-add-btn"
+                        data-item-id="{{itemDetails.item_id}}" 
+                        data-media-type="{{itemDetails.media_type}}"
+                        data-item-title="{{itemDetails.title}}"
+                        data-item-poster="{{itemDetails.poster_url}}"
+                        data-item-rating="{{itemDetails.vote_average}}" style="display: block;">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                    </button>
+                    {% endif %}
+
+                    {% if itemDetails.vote_average == 0 %}
+                        <span class="item-rating">N/A</span>
+                    {% elif itemDetails.vote_average > 0 and itemDetails.vote_average < 5 %}
+                        <span class="item-rating" style="background: linear-gradient(0deg, rgb(255, 87, 87) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
+                    {% elif itemDetails.vote_average >= 5 and itemDetails.vote_average < 7 %}
+                        <span class="item-rating" style="background: linear-gradient(0deg, rgb(255, 219, 39) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
+                    {% else %}
+                        <span class="item-rating" style="background: linear-gradient(0deg, rgb(151, 255, 95) 0%, rgb(255, 255, 255) 100%)">{{itemDetails.vote_average|floatformat:1}}</span>
+                    {% endif %}
+                </div>
             </div>
-            <div class="item-overview item-info">
-                <h3>Overview:</h3>
-                <span>{{itemDetails.overview}} </span>
+            
+            <div class="poster-video-container">
+                <div class="item-image-block">
+                    <img src="{{itemDetails.poster_url}}" alt="">
+                </div>
+                <div class="video-container">
+                    <iframe width="1280" height="720" src="https://www.youtube.com/embed/54ecFoxQtN8" title="{{item.itemDetails.title}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+                </div>
             </div>
-            <div class="item-cast item-info">
-                <h3>Henry Cavill</h3>
-                <span>Actor</p>
+
+            <div class="item-info">
+                <div class="genre-container">
+                    {% for genre in itemDetails.genre %}
+                    <span class="genre-tag">{{genre.name}}</span>
+                    {% endfor %}  
+                </div>
+                <div class="item-overview">
+                    <span>{{itemDetails.overview}}</span>
+                </div>
+                <hr>
             </div>
         </div>
     </section>
 </body>
 {% endblock content %}
-    
+
+
+
+<div class="item-info-container">
+    <div class="item-genre item-info">
+        {% for genre in itemDetails.genre %}
+            <span class="genre-tag">{{genre.name}}</span>
+        {% endfor %}  
+    </div>
+    <div class="item-overview item-info">
+        <h3>Overview:</h3>
+        <span>{{itemDetails.overview}}</span>
+    </div>
+</div>

@@ -5,6 +5,8 @@
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'styles/item-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/item-card.css' %}">
+
 </head>
 <body>
     <section class="item-slider">
@@ -68,8 +70,7 @@
                             
                     </div>
                     <div class="item-info">
-                        <h2 class="item-name">{{movie.title}}</h2>
-                        <span class="item-year">{{movie.release_date|slice:'-4:'}}</span>
+                        <h2 class="item-name">{{movie.title}} ({{movie.release_date|slice:'-4:'}})</h2>
                         <button class="watch-trailer-btn">Trailer</button>
                         
                     </div>

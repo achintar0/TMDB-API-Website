@@ -31,6 +31,7 @@ $(document).on('click', '.watchlist-add-btn', function(){
 
 $(document).on('click', '.watchlist-remove-btn', function(){
     const windowLocation = window.location.href;
+    //temporal solution
     const watchlistURL = "http://127.0.0.1:8000/watchlist/"
 
     var item_id = $(this).data('item-id');
@@ -39,7 +40,7 @@ $(document).on('click', '.watchlist-remove-btn', function(){
     
     var deletePrompt = window.confirm(`Remove "${item_title}" from the watchlist?`);
     
-    if (deletePrompt)
+    if (deletePrompt){
         $.ajax({
             type: "POST",
             url: removeFromWatchlistURL,
@@ -58,4 +59,5 @@ $(document).on('click', '.watchlist-remove-btn', function(){
                 }
             }
         });
+    }     
 });
