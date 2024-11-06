@@ -34,8 +34,7 @@ class DataSetup:
         return items
 
     def setup_item_details(item_id, media_type, user):
-        movieDetails = []
-        tvshowDetails = []
+        itemDetails = []
         videoTrailer = None
         
         queryData = TMDBClient.search_item_details(item_id, media_type)
@@ -54,7 +53,7 @@ class DataSetup:
         else:
             on_watchlist = False
 
-        movieDetails = {
+        itemDetails = {
             'item_id': queryData['id'],
             'title': queryData.get('title') or queryData.get('name'),
             'release_date': queryData.get('release_date') or queryData.get('first_air_date'),
@@ -72,14 +71,14 @@ class DataSetup:
             'video_url': videoTrailer,
         }
 
-        if movieDetails['media_type'] == 'movie':
+        if itemDetails['media_type'] == 'movie':
             movieHours = queryData['runtime']//60
             movieMinutes = queryData['runtime']%60
 
-            movieDetails['runtimeHours'] = movieHours
-            movieDetails['runtimeMinutes'] = movieMinutes
+            itemDetails['runtimeHours'] = movieHours
+            itemDetails['runtimeMinutes'] = movieMinutes
 
-        release_date = datetime.strptime(movieDetails['release_date'], "%Y-%m-%d")
-        movieDetails['release_date'] = release_date.strftime("%d %B %Y")
+        release_date = datetime.strptime(itemDetails['release_date'], "%Y-%m-%d")
+        itemDetails['release_date'] = release_date.strftime("%d %B %Y")
         
-        return movieDetails
+        return itemDetails
