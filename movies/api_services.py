@@ -3,19 +3,6 @@ import requests
 
 class TMDBClient:
     BASE_URL = 'https://api.themoviedb.org/3'
-
-    def fetch_day_trending_movies():
-        movies = []
-        url = f'{TMDBClient.BASE_URL}/trending/movie/day'
-        params = {
-            'api_key': settings.TMDB_API_KEY,
-            'page': 1
-        }
-
-        response = requests.get(url, params=params)
-        if response.status_code == 200:
-            return response.json().get('results', [])
-        return movies
     
     def fetch_week_trending_movies():
         movies = []
@@ -47,9 +34,9 @@ class TMDBClient:
             return genre_map
         return genre_map
     
-    def search_movie_details(item_id):
-        movieDetails = []
-        url = f'{TMDBClient.BASE_URL}/movie/{item_id}'
+    def search_item_details(item_id, media_type):
+        itemDetails = []
+        url = f'{TMDBClient.BASE_URL}/{media_type}/{item_id}'
 
         params = {
             'api_key': settings.TMDB_API_KEY,
@@ -61,11 +48,11 @@ class TMDBClient:
         if response.status_code == 200:
             data = response.json()
             return data
-        return movieDetails
+        return itemDetails
     
-    def search_series_details(item_id):
-        seriesDetails = []
-        url = f'{TMDBClient.BASE_URL}/tv/{item_id}'
+    def search_item_videos(item_id, media_type):
+        itemVideos = []
+        url = f'{TMDBClient.BASE_URL}/{media_type}/{item_id}/videos'
 
         params = {
             'api_key': settings.TMDB_API_KEY,
@@ -75,41 +62,9 @@ class TMDBClient:
         response = requests.get(url, params=params)
 
         if response.status_code == 200:
-            data = response.json()
+            data = response.json().get('results', [])
             return data
-        return seriesDetails
-
-    def search_series_video(item_id):
-        serieVideos = []
-        url = f'{TMDBClient.BASE_URL}/tv/{item_id}/videos'
-
-        params = {
-            'api_key': settings.TMDB_API_KEY,
-            'language': 'en-US'
-        }
-
-        response = requests.get(url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        return serieVideos
-    
-    def search_movie_video(item_id):
-        movieVideos = []
-        url = f'{TMDBClient.BASE_URL}/movie/{item_id}/videos'
-
-        params = {
-            'api_key': settings.TMDB_API_KEY,
-            'language': 'en-US'
-        }
-
-        response = requests.get(url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        return movieVideos
+        return itemVideos
 
     @staticmethod
     def search_items(query):

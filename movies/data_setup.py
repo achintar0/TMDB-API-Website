@@ -36,73 +36,50 @@ class DataSetup:
     def setup_item_details(item_id, media_type, user):
         movieDetails = []
         tvshowDetails = []
+        videoTrailer = None
         
-        if media_type == 'movie':
-            queryData = TMDBClient.search_movie_details(item_id)
-            videoData = TMDBClient.search_movie_video(item_id)
+        queryData = TMDBClient.search_item_details(item_id, media_type)
+        videoData = TMDBClient.search_item_videos(item_id, media_type)
 
-            poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
-            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
+        for video in videoData:
+            if video['type'] == 'Trailer' and video['site'] == 'YouTube':
+                videoTrailer = video['key']
+                break
 
-            if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
-                on_watchlist = True
-            else:
-                on_watchlist = False
+        poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
+        backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
 
-            movieDetails = {
-                'item_id': queryData['id'],
-                'title': queryData['title'],
-                'release_date': queryData.get('release_date'),
-                'vote_average': queryData.get('vote_average'),
-                'genre': queryData['genres'],
-                'overview': queryData['overview'],
-                'poster_url': poster_url,
-                'backdrop_img': backdrop_url,
-                'runtimeHours': queryData['runtime'],
-                'runtimeMinutes': queryData['runtime'],
-                'media_type': media_type,
-                'on_watchlist': on_watchlist,
-            }
+        if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
+            on_watchlist = True
+        else:
+            on_watchlist = False
 
+        movieDetails = {
+            'item_id': queryData['id'],
+            'title': queryData.get('title') or queryData.get('name'),
+            'release_date': queryData.get('release_date') or queryData.get('first_air_date'),
+            'vote_average': queryData.get('vote_average'),
+            'genre': queryData['genres'],
+            'overview': queryData['overview'],
+            'poster_url': poster_url,
+            'backdrop_img': backdrop_url,
+            'runtimeHours': queryData.get('runtime') or None,
+            'runtimeMinutes': queryData.get('runtime') or None,
+            'number_of_seasons': queryData.get('number_of_seasons') or None,
+            'number_of_episodes': queryData.get('number_of_episodes') or None,
+            'media_type': media_type,
+            'on_watchlist': on_watchlist,
+            'video_url': videoTrailer,
+        }
+
+        if movieDetails['media_type'] == 'movie':
             movieHours = queryData['runtime']//60
             movieMinutes = queryData['runtime']%60
 
             movieDetails['runtimeHours'] = movieHours
             movieDetails['runtimeMinutes'] = movieMinutes
 
-            release_date = datetime.strptime(movieDetails['release_date'], "%Y-%m-%d")
-            movieDetails['release_date'] = release_date.strftime("%d %B %Y")
-            
-            return movieDetails
+        release_date = datetime.strptime(movieDetails['release_date'], "%Y-%m-%d")
+        movieDetails['release_date'] = release_date.strftime("%d %B %Y")
         
-        else:
-            queryData = TMDBClient.search_series_details(item_id)
-            videoData = TMDBClient.search_series_video(item_id)
-
-            poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
-            backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
-            
-            if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
-                on_watchlist = True
-            else:
-                on_watchlist = False
-
-            tvshowDetails = {
-                'item_id': queryData['id'],
-                'title': queryData['name'],
-                'release_date': queryData['first_air_date'],
-                'vote_average': queryData['vote_average'],
-                'genre': queryData['genres'],
-                'overview': queryData['overview'],
-                'poster_url': poster_url,
-                'backdrop_img': backdrop_url,
-                'number_of_seasons': queryData['number_of_seasons'],
-                'number_of_episodes': queryData['number_of_episodes'],
-                'media_type': media_type,
-                'on_watchlist': on_watchlist,
-            }
-
-            release_date = datetime.strptime(tvshowDetails['release_date'], "%Y-%m-%d")
-            tvshowDetails['release_date'] = release_date.strftime("%d %B %Y")
-
-            return tvshowDetails
+        return movieDetails
