@@ -6,12 +6,17 @@ from .data_setup import DataSetup
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from accounts.models import Watchlist
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class TrendingMovies(TemplateView):
+
+class TrendingMovies(LoginRequiredMixin, TemplateView):
     template_name = 'movies/home.html'
     
     def get(self, request):
-        user = self.request.user
+        if self.request.user:
+            user = self.request.user
+        else:
+            user = None
         movies = []
         queryData = TMDBClient.fetch_week_trending_movies()
         genre_map = TMDBClient.fetch_genre_ids()
@@ -24,11 +29,14 @@ class TrendingMovies(TemplateView):
         return self.render_to_response(context)
 
 
-class ItemsSearch(TemplateView):
+class ItemsSearch(LoginRequiredMixin, TemplateView):
     template_name = 'movies/search.html'
 
     def get(self, request, *args, **kwargs):
-        user = self.request.user
+        if self.request.user:
+            user = self.request.user
+        else:
+            user = None
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_items(query)
