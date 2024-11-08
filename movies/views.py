@@ -9,11 +9,11 @@ from accounts.models import Watchlist
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class TrendingMovies(LoginRequiredMixin, TemplateView):
+class TrendingMovies(TemplateView):
     template_name = 'movies/home.html'
     
     def get(self, request):
-        if self.request.user:
+        if self.request.user.is_authenticated:
             user = self.request.user
         else:
             user = None
@@ -23,20 +23,21 @@ class TrendingMovies(LoginRequiredMixin, TemplateView):
 
         movies = DataSetup.setup_response_data(queryData, genre_map, 'w500', user)
         context = {
-            'trendingMovies': movies
+            'trendingMovies': movies,
         }
 
         return self.render_to_response(context)
 
 
-class ItemsSearch(LoginRequiredMixin, TemplateView):
+class ItemsSearch(TemplateView):
     template_name = 'movies/search.html'
 
     def get(self, request, *args, **kwargs):
-        if self.request.user:
+        if self.request.user.is_authenticated:
             user = self.request.user
         else:
             user = None
+            
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_items(query)
@@ -49,14 +50,18 @@ class ItemsSearch(LoginRequiredMixin, TemplateView):
 
         context = {
             'items': sortedItems,
-            'query': query
+            'query': query,
         }
 
         return self.render_to_response(context)
     
 class SearchBar(View):
     def get(self, request):
-        user = self.request.user
+        if self.request.user.is_authenticated:
+            user = self.request.user
+        else:
+            user = None
+
         query = request.GET.get('query', '')
         if query:
             queryData = TMDBClient.search_items(query)
@@ -78,9 +83,14 @@ class MovieDetailsPage(TemplateView):
     
     
     def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+            user = self.request.user
+        else:
+            user = None
+
         item_id = self.kwargs.get('item_id')
         media_type = self.kwargs.get('media_type')
-        user = self.request.user
+        
 
         itemResults = DataSetup.setup_item_details(item_id, media_type, user)
 
@@ -94,7 +104,11 @@ class SeriesDetailsPage(TemplateView):
     template_name = 'movies/item-details.html'
     
     def get_context_data(self, **kwargs):
-        user = self.request.user
+        if self.request.user.is_authenticated:
+            user = self.request.user
+        else:
+            user = None
+            
         item_id = self.kwargs.get('item_id')
         media_type = self.kwargs.get('media_type')
 

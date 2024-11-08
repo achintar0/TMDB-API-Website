@@ -38,7 +38,8 @@
                             <img src="{{movie.poster_url}}" class="item-poster" alt="{{movie.title}}">
                         </a>
                         
-                        {% if movie.on_watchlist %}
+                        {% if user.is_authenticated %}
+                            {% if movie.on_watchlist %}
                         <button class="watchlist-remove-btn" 
                             data-item-id="{{movie.item_id}}"
                             data-item-title="{{movie.title}}" style="display: block;">
@@ -52,13 +53,24 @@
                             data-item-rating="{{movie.vote_average}}" style="display: none;">
                         <img src="{% static 'icons/watchlist-add.png' %}" alt="">
                         </button>
-                        {% else %}
-                        <button class="watchlist-remove-btn" id="watchlist-remove-btn"
+                            {% else %}
+                        <button class="watchlist-remove-btn"
                             data-item-id="{{movie.item_id}}"
                             data-item-title="{{movie.title}}" style="display: none;">
                         <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
                         </button>
-                        <button class="watchlist-add-btn" id="watchlist-add-btn"
+                        <button class="watchlist-add-btn"
+                            data-item-id="{{movie.item_id}}" 
+                            data-media-type="{{movie.media_type}}"
+                            data-item-title="{{movie.title}}"
+                            data-item-poster="{{movie.poster_url}}"
+                            data-item-rating="{{movie.vote_average}}" style="display: block;">
+                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                        </button>
+                            {% endif %}
+
+                        {% else %}
+                        <button class="watchlist-add-btn" 
                             data-item-id="{{movie.item_id}}" 
                             data-media-type="{{movie.media_type}}"
                             data-item-title="{{movie.title}}"

@@ -44,35 +44,49 @@
                     </a>
                     {% endif %}
                     
-                        {% if item.on_watchlist %}
-                        <button class="watchlist-remove-btn" 
-                            data-item-id="{{item.item_id}}"
-                            data-item-title="{{item.title}}" style="display: block;">
-                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
-                        </button>
-                        <button class="watchlist-add-btn" 
-                            data-item-id="{{item.item_id}}" 
-                            data-media-type="{{item.media_type}}"
-                            data-item-title="{{item.title}}"
-                            data-item-poster="{{item.poster_url}}"
-                            data-item-rating="{{item.vote_average}}" style="display: none;">
-                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                        </button>
-                        {% else %}
-                        <button class="watchlist-remove-btn"
-                            data-item-id="{{item.item_id}}"
-                            data-item-title="{{item.title}}" style="display: none;">
-                        <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
-                        </button>
-                        <button class="watchlist-add-btn"
-                            data-item-id="{{item.item_id}}" 
-                            data-media-type="{{item.media_type}}"
-                            data-item-title="{{item.title}}"
-                            data-item-poster="{{item.poster_url}}"
-                            data-item-rating="{{item.vote_average}}" style="display: block;">
-                        <img src="{% static 'icons/watchlist-add.png' %}" alt="">
-                        </button>
-                        {% endif %}
+                    
+                    {% if auth %}
+                    {% if item.on_watchlist %}
+                    <button class="watchlist-remove-btn" 
+                        data-item-id="{{item.item_id}}"
+                        data-item-title="{{item.title}}" style="display: block;">
+                    <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                    </button>
+                    <button class="watchlist-add-btn" 
+                        data-item-id="{{item.item_id}}" 
+                        data-media-type="{{item.media_type}}"
+                        data-item-title="{{item.title}}"
+                        data-item-poster="{{item.poster_url}}"
+                        data-item-rating="{{item.vote_average}}" style="display: none;">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                    </button>
+                    {% else %}
+                    <button class="watchlist-remove-btn"
+                        data-item-id="{{item.item_id}}"
+                        data-item-title="{{item.title}}" style="display: none;">
+                    <img src="{% static 'icons/watchlist-remv.png' %}" alt="">
+                    </button>
+                    <button class="watchlist-add-btn"
+                        data-item-id="{{item.item_id}}" 
+                        data-media-type="{{item.media_type}}"
+                        data-item-title="{{item.title}}"
+                        data-item-poster="{{item.poster_url}}"
+                        data-item-rating="{{item.vote_average}}" style="display: block;">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                    </button>
+                    {% endif %}
+                    {% else %}
+                    <button class="watchlist-add-btn"
+                        data-item-id="{{item.item_id}}" 
+                        data-media-type="{{item.media_type}}"
+                        data-item-title="{{item.title}}"
+                        data-item-poster="{{item.poster_url}}"
+                        data-item-rating="{{item.vote_average}}" style="display: block;">
+                    <img src="{% static 'icons/watchlist-add.png' %}" alt="">
+                    </button>
+                    {% endif %}
+                        
+                        
 
                 </div>
                 <div class="item-info">

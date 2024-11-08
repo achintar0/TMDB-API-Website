@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,8 +33,10 @@
                             <a href="{% url 'logout' %}">Logout</a>
                         </div>
                     </div>
+                    <script>var loggedIn = true;</script>
                 {% else %}
                     <a href="{% url 'login' %}" class="login-btn">Sign In</a>
+                    <script>var loggedIn = false;</script>
                 {%endif%}
             </div>
         </div>
@@ -48,16 +49,19 @@
     {% endif %}
     {% block content %}
     {% endblock %}
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+        const addToWatchlistURL = {% url 'add-to-watchlist' %};
+        const removeFromWatchlistURL = {% url 'remove-from-watchlist' %};
+        const loginURL = {% url 'login' %};
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'scripts/search-bar.js' %}"></script>
     <script src="{% static 'scripts/item-card-text.js' %}"></script>
     <script src="{% static 'scripts/item-slider.js' %}"></script>
     <script src="{% static 'scripts/watchlist.js'%}"></script>
-    <script>
-        const csrfToken = "{{ csrf_token }}";
-        const addToWatchlistURL = {% url 'add-to-watchlist' %};
-        const removeFromWatchlistURL = {% url 'remove-from-watchlist' %};
-    </script>
+    
 </body>
 
 

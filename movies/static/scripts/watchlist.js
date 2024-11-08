@@ -1,11 +1,18 @@
+//add btn click
 $(document).on('click', '.watchlist-add-btn', function(){
+
     var item_id = $(this).data('item-id');
     var media_type = $(this).data('media-type');
     var item_title = $(this).data('item-title');
     var item_poster = $(this).data('item-poster');
     var item_rating = $(this).data('item-rating');
+
     var btnClicked = $(this);
 
+    if(loggedIn == false){
+        window.location.href = loginURL;
+        return;
+    }
 
     $.ajax({
         type: "POST",
@@ -27,8 +34,7 @@ $(document).on('click', '.watchlist-add-btn', function(){
     });
 });
 
-
-
+//remove btn click
 $(document).on('click', '.watchlist-remove-btn', function(){
     const windowLocation = window.location.href;
     //temporal solution

@@ -60,7 +60,8 @@ body{
     flex-direction: column;
 
     width: auto;
-    margin-left: 10px;
+    margin-left: 15px;
+    padding: 5px;
 }
 
 .headline-right-elems{
