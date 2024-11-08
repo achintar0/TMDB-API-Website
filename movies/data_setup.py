@@ -35,10 +35,13 @@ class DataSetup:
 
     def setup_item_details(item_id, media_type, user):
         itemDetails = []
+        productionCompanies = []
+
         videoTrailer = None
         
         queryData = TMDBClient.search_item_details(item_id, media_type)
         videoData = TMDBClient.search_item_videos(item_id, media_type)
+
 
         for video in videoData:
             if video['type'] == 'Trailer' and video['site'] == 'YouTube':
@@ -46,6 +49,17 @@ class DataSetup:
                 break
 
         poster_url = f"https://image.tmdb.org/t/p/w500{queryData['poster_path']}"
+        
+        for company in queryData['production_companies']:
+            company_logo = f"https://image.tmdb.org/t/p/w500{company['logo_path']}"
+
+            productionCompanies.append({
+                'id': company['id'],
+                'company_name': company['name'],
+                'company_logo': company_logo or None,
+            })
+
+
         backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
 
         if Watchlist.objects.filter(username=user, itemID=queryData.get('id')).exists():
@@ -69,6 +83,7 @@ class DataSetup:
             'media_type': media_type,
             'on_watchlist': on_watchlist,
             'video_url': videoTrailer,
+            'production_companies': productionCompanies,
         }
 
         if itemDetails['media_type'] == 'movie':
@@ -80,5 +95,7 @@ class DataSetup:
 
         release_date = datetime.strptime(itemDetails['release_date'], "%Y-%m-%d")
         itemDetails['release_date'] = release_date.strftime("%d %B %Y")
+
+        print(itemDetails['production_companies'])
         
         return itemDetails

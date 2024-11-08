@@ -74,16 +74,27 @@
             </div>
 
             <div class="item-info">
-                <div class="genre-container">
-                    {% for genre in itemDetails.genre %}
-                    <span class="genre-tag">{{genre.name}}</span>
-                    {% endfor %}  
+                <div class="item-details">
+                    <div class="genre-container">
+                        {% for genre in itemDetails.genre %}
+                        <span class="genre-tag">{{genre.name}}</span>
+                        {% endfor %}  
+                    </div>
+                    <div class="item-overview">
+                        <span>{{itemDetails.overview}}</span>
+                    </div>
+                    <hr>
                 </div>
-                <div class="item-overview">
-                    <span>{{itemDetails.overview}}</span>
-                </div>
-                <hr>
-            </div>
+                <div class="item-companies-container">
+                    <p>Production Companies</p>
+                    {% for company in itemDetails.production_companies %}
+                        {% if company.company_logo|slice:'-4:' == 'None' %}
+                            <a><p>{{company.company_name}}</p></a>
+                        {% else %}
+                            <a href="#" alt="{{company.company_name}}"><img src="{{company.company_logo}}"></a>
+                        {% endif %}
+                    {% endfor %}
+            </div>  
         </div>
     </section>
 </body>
