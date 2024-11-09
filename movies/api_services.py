@@ -82,3 +82,19 @@ class TMDBClient:
             data = response.json().get('results', [])
             return data
         return itemData
+    
+    def fetch_creators(item_id, media_type):
+        itemCast = []
+        url = f'{TMDBClient.BASE_URL}/{media_type}/{item_id}/credits'
+
+        params = {
+            'api_key': settings.TMDB_API_KEY,
+            'language': 'en-US'
+        }
+
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            data = response.json().get('cast', [])
+            return data
+        return itemCast

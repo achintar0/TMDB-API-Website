@@ -20,7 +20,7 @@
                 <form method="GET" action="{% url 'search' %}">
                     <input type="text" id="searchInput" name="query" value="{{query}}" class="search-box" data-url="{% url 'items-search-bar' %}" placeholder="Search a movie..." autocomplete="off">
                     <button type="submit" class="search-btn"><img src="{% static 'icons/glass.png' %}"></button>
-                    <div id="movieResults" class="dynamic-search-container">
+                    <div id="itemResults" class="dynamic-search-container">
                     </div>
                 </form>
                 
@@ -54,7 +54,6 @@
         const addToWatchlistURL = {% url 'add-to-watchlist' %};
         const removeFromWatchlistURL = {% url 'remove-from-watchlist' %};
         const loginURL = {% url 'login' %};
-
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'scripts/search-bar.js' %}"></script>

@@ -13,9 +13,9 @@ $(document).ready(function(){
                 },
                 dataType: 'json',
                 success: function(data){
-                    $('#movieResults').empty();
+                    $('#itemResults').empty();
                     data.searchBarItems.slice(0,4).forEach(function(item){
-                        $('#movieResults').append(
+                        $('#itemResults').append(
                             `<a href="" class="search-bar-item" data-id="${item.item_id}" data-type="${item.media_type}">
                             <div class="dynamic-search-img">
                                 <img src="${item.poster_url}" alt="">
@@ -42,17 +42,17 @@ $(document).ready(function(){
                     });
                 }
             });
-            $('#movieResults').show();
+            $('#itemResults').show();
         }
         else{
-            $('#movieResults').hide();
-            $('#movieResults').empty();
+            $('#itemResults').hide();
+            $('#itemResults').empty();
         }
     });
 });
 
 $(document).click(function (event) { 
-    if (event.target !== ($('#searchInput') && $('#movieResults'))){
-        $('#movieResults').hide();
+    if (event.target !== ($('#searchInput') && $('#itemResults'))){
+        $('#itemResults').hide();
     }
 });

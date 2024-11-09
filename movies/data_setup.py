@@ -36,13 +36,13 @@ class DataSetup:
     def setup_item_details(item_id, media_type, user):
         itemDetails = []
         productionCompanies = []
+        top4Cast = []
 
         videoTrailer = None
         
         queryData = TMDBClient.search_item_details(item_id, media_type)
         videoData = TMDBClient.search_item_videos(item_id, media_type)
-
-
+        
         for video in videoData:
             if video['type'] == 'Trailer' and video['site'] == 'YouTube':
                 videoTrailer = video['key']
@@ -58,7 +58,6 @@ class DataSetup:
                 'company_name': company['name'],
                 'company_logo': company_logo or None,
             })
-
 
         backdrop_url = f"https://image.tmdb.org/t/p/w1280{queryData['backdrop_path']}"
 
@@ -95,7 +94,5 @@ class DataSetup:
 
         release_date = datetime.strptime(itemDetails['release_date'], "%Y-%m-%d")
         itemDetails['release_date'] = release_date.strftime("%d %B %Y")
-
-        print(itemDetails['production_companies'])
         
         return itemDetails

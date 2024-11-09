@@ -85,24 +85,26 @@
                     </div>
                     <hr>
                     <div class="item-creators">
-                        <div class="creators-container">
+                        <ul class="creators-container">
                             Creators:
-                            <span><a href="#">Achilles Daralas</a></span>
-                            <span><a href="#">Paul Rudd</a></span>
-                            <span><a href="#">Erik Sommers</a></span>
+                            <li><a href="#">Achilles Daralas</a></li>
+                            <li><a href="#">Paul Rudd</a></li>
+                            <li><a href="#">Erik Sommers</a></li>
                         </ul>
                     </div>
                     <hr>
+                    <div class="item-companies-container">
+                        <p>Production<br>Companies</p>
+                        {% for company in itemDetails.production_companies %}
+                            {% if company.company_logo|slice:'-4:' == 'None' %}
+                                <a><p>{{company.company_name}}</p></a>
+                            {% else %}
+                                <a href="#" alt="{{company.company_name}}"><img src="{{company.company_logo}}"></a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <hr>
                 </div>
-                <div class="item-companies-container">
-                    <p>Production Companies</p>
-                    {% for company in itemDetails.production_companies %}
-                        {% if company.company_logo|slice:'-4:' == 'None' %}
-                            <a><p>{{company.company_name}}</p></a>
-                        {% else %}
-                            <a href="#" alt="{{company.company_name}}"><img src="{{company.company_logo}}"></a>
-                        {% endif %}
-                    {% endfor %}
             </div>  
         </div>
     </section>
