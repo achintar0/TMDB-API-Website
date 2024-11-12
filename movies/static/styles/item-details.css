@@ -178,10 +178,10 @@ body{
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 20px 10px;
+    padding: 20px 0px;
 
     width: 100%;
-    height: 25em;
+    height: 100%;
     gap: 1em;
 }
 
@@ -190,7 +190,7 @@ body{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    flex: 2;
+    flex: 3;
     gap: 0.5em;
 }
 
@@ -225,16 +225,16 @@ body{
 .item-companies-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     flex: 1;
-    gap: 1em;
+    gap: 0.5em;
     background: rgba(30, 30, 30, 0.5);
     border-radius: 0.2em;
 
-    width: 100%;
-    height: 10em;
-    padding: 10px 0px;
+    height: auto;
+    padding: 20px;
 }
 
 .item-companies-container > a{
@@ -272,13 +272,14 @@ body{
 
 .item-companies-container > p{
     margin: 0;
+    padding: 5px;
 }
 
-.item-creators{
+.item-credits{
     width: 100%;
 }
 
-.creators-container{
+.credits-container{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -289,7 +290,7 @@ body{
     list-style-type: none;
 }
 
-.creators-container > li > a{
+.credits-container > li > a{
     text-decoration: none;
     color: rgb(0, 110, 255);
     border-right: solid 1px white;

@@ -84,26 +84,37 @@
                         <span>{{itemDetails.overview}}</span>
                     </div>
                     <hr>
-                    <div class="item-creators">
-                        <ul class="creators-container">
+                    
+                    
+                    <div class="item-credits">
+                        <ul class="credits-container">
+                            {% if itemDetails.media_type == 'tv' %}
                             Creators:
-                            <li><a href="#">Achilles Daralas</a></li>
-                            <li><a href="#">Paul Rudd</a></li>
-                            <li><a href="#">Erik Sommers</a></li>
+                                {% for creator in itemDetails.seriesCreators %}
+                                    <li><a href="#">{{creator.name}}</a></li>
+                                {% endfor %}
+                            {% else %}
+                            Creators:
+                            {% for creator in itemDetails.movieCreators %}
+                                <li><a href="#">{{creator.name}}</a></li>
+                            {% endfor %}
+                            {% endif %}
                         </ul>
                     </div>
+                    
+                        
+                    
                     <hr>
-                    <div class="item-companies-container">
-                        <p>Production<br>Companies</p>
-                        {% for company in itemDetails.production_companies %}
-                            {% if company.company_logo|slice:'-4:' == 'None' %}
-                                <a><p>{{company.company_name}}</p></a>
-                            {% else %}
-                                <a href="#" alt="{{company.company_name}}"><img src="{{company.company_logo}}"></a>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <hr>
+                </div>
+                <div class="item-companies-container">
+                    <p>Production Companies</p>
+                    {% for company in itemDetails.production_companies %}
+                        {% if company.company_logo|slice:'-4:' == 'None' %}
+                            <a><p>{{company.company_name}}</p></a>
+                        {% else %}
+                            <a href="#" alt="{{company.company_name}}"><img src="{{company.company_logo}}"></a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>  
         </div>

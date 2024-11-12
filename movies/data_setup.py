@@ -32,17 +32,51 @@ class DataSetup:
                 item['release_date'] = release_date.strftime("%d %B %Y")
         
         return items
+    
+
+
+    # Movies
+        # Created by: NO
+        # Crew[]: YES
+        # Jobs[Writer, Director]
+    # Series
+        # Created by: YES
+        # Crew[]: YES
+        # Jobs[Producer, Novel]
 
     def setup_item_details(item_id, media_type, user):
         itemDetails = []
         productionCompanies = []
+        seriesCreators = []
+        movieCreators = []
         top4Cast = []
 
         videoTrailer = None
         
         queryData = TMDBClient.search_item_details(item_id, media_type)
+        creditsData = TMDBClient.fetch_credits(item_id, media_type)
         videoData = TMDBClient.search_item_videos(item_id, media_type)
-        
+
+        crewData = creditsData.get('crew', [])
+
+        if media_type == 'tv':
+            seriesCreators = queryData.get('created_by', [])
+        else:
+            for crew in crewData:
+                exists = False
+                for creator in movieCreators:
+                    if crew['name'] == creator['name']:
+                        exists = True
+                        break
+                if (crew['job'] == 'Writer' or crew['job'] == 'Director' or crew['job'] == 'Producer') and exists == False:
+                    movieCreators.append({
+                        'name':crew['name'],
+                        'job': crew['job'],
+                        'popularity': crew['popularity'],
+                    })                
+
+        movieCreators = sorted(movieCreators, key=lambda x: x['popularity'], reverse=True)
+            
         for video in videoData:
             if video['type'] == 'Trailer' and video['site'] == 'YouTube':
                 videoTrailer = video['key']
@@ -83,6 +117,8 @@ class DataSetup:
             'on_watchlist': on_watchlist,
             'video_url': videoTrailer,
             'production_companies': productionCompanies,
+            'movieCreators': movieCreators[slice(3)],
+            'seriesCreators': seriesCreators
         }
 
         if itemDetails['media_type'] == 'movie':

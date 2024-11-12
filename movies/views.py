@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class TrendingMovies(TemplateView):
     template_name = 'movies/home.html'
     
+    
     def get(self, request):
         if self.request.user.is_authenticated:
             user = self.request.user
