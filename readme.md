@@ -8,6 +8,9 @@ Current features:
 - Account register/login.
 - Add to watchlist and watchlist view.
 
+## Home page.
+![alt element](https://github.com/achintar0/TMDB-API-Website/blob/master/_images/home_page.png?raw=true)
+
 ## Dynamic Search Bar and trending movies.
 ![alt element](https://github.com/achintar0/TMDB-API-Website/blob/master/_images/search-bar.png?raw=true)
 
